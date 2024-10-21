@@ -28,5 +28,8 @@ int main() {
     for(int i=0; i<9; i++){
         printf("move %d : %s   ", i, getMoveAsString(moves[i]));
     }
+
+
+
     return 0;
 }
