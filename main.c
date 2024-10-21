@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "map.h"
+#include "moves.h"
 
 int main() {
     t_map map = createMapFromFile("..\\maps\\example1.map");
@@ -22,5 +23,10 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+
+    t_move* moves = draw9Move();
+    for(int i=0; i<9; i++){
+        printf("move %d : %s   ", i, getMoveAsString(moves[i]));
+    }
     return 0;
 }

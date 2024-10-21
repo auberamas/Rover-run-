@@ -3,6 +3,7 @@
 //
 
 #include "moves.h"
+#include <stdlib.h>
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -152,4 +153,29 @@ void updateLocalisation(t_localisation *p_loc, t_move m)
 {
     *p_loc = move(*p_loc, m);
     return;
+}
+
+t_move drawMove(){
+    int rand_move = rand()%100+1;
+    int move =0;
+    // finding the drawn value
+    while(rand_move > probabilities[move]){
+        move++;
+    }
+    int temp = move;
+    // updating the probabilities table
+    while(temp<7) {
+        probabilities[temp] = probabilities[temp] - 1;
+        temp ++;
+    }
+    return move;
+}
+
+
+t_move* draw9Move(){
+    t_move* SetOfMove = malloc(9 * sizeof(t_move));
+    for(int i = 0; i<9; i++){
+        SetOfMove[i]=drawMove();
+    }
+    return SetOfMove;
 }

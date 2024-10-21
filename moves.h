@@ -13,6 +13,11 @@
 static char _moves[8][8] = {"F 10m", "F 20m", "F 30m", "B 10m", "T left", "T right", "U-turn"};
 
 /**
+ *  @brief Array of the sum of probabilities to draw each moves
+ */
+static int probabilities[] = {22, 37, 44, 51, 72, 93, 100};
+
+/**
  * @brief Enum for the possible moves of the robot
  */
 
@@ -49,5 +54,17 @@ t_localisation move(t_localisation, t_move);
  * @return none
  */
 void updateLocalisation(t_localisation *, t_move);
+
+/**
+ *@brief draw a move
+ * @return a movement
+ **/
+t_move drawMove();
+
+/**
+ * @brief draw nine movement
+ * @return an array of nine movements
+ */
+ t_move* draw9Move();
 
 #endif //UNTITLED1_MOVES_H
