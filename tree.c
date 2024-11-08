@@ -22,6 +22,6 @@ t_node* createNode(int value, int nb_sons, int depth, t_node* parent){
 
 t_node *createTree(t_move* list_of_move, int nbMove){
     t_node* root = createNode(-1,9,5,NULL);
-    
+
 }
 

@@ -24,7 +24,7 @@ int main() {
     }
     displayMap(map);
 
-    t_move* moves = draw9Move();
+    t_move* moves = draw9Moves();
     for(int i=0; i<9; i++){
         printf("move %d : %s   ", i, getMoveAsString(moves[i]));
     }

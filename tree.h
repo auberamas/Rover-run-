@@ -32,7 +32,7 @@ t_node *createNode(int value, int nb_sons, int depth, t_node* parent);
 
 /**
  * @brief generate the tree
- * @param list_of_move the list of 9 move to draw
+ * @param list_of_move the list of 9 drawed moves
  * @param nbMove number of move
  * @return the root of the tree
  */

@@ -65,6 +65,6 @@ t_move drawMove();
  * @brief draw nine movement
  * @return an array of nine movements
  */
- t_move* draw9Move();
+ t_move* draw9Moves();
 
 #endif //UNTITLED1_MOVES_H

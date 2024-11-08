@@ -53,7 +53,7 @@ t_localisation translate(t_localisation loc, t_move move)
      *  - y grows to the bottom with step of +1
      *  - the origin (x=0, y=0) is at the top left corner
      */
-    t_position res;
+    t_position res = loc.pos;
     switch (move) {
         case F_10:
             switch (loc.ori) {
@@ -172,7 +172,7 @@ t_move drawMove(){
 }
 
 
-t_move* draw9Move(){
+t_move* draw9Moves(){
     t_move* SetOfMove = malloc(9 * sizeof(t_move));
     for(int i = 0; i<9; i++){
         SetOfMove[i]=drawMove();
