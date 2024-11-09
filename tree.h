@@ -7,6 +7,7 @@
 
 #include "moves.h"
 #include "map.h"
+#include "nodequeue.h"
 
 /**
  * structure for a node

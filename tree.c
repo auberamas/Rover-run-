@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "nodequeue.h"
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -56,12 +55,13 @@ t_node* createNode(int value, int nb_sons, int depth, t_node* parent, t_localisa
 t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc){ // need to add when crevasse and when outside of the map
     // initialisation of the root
     t_node* root = createNode(map.costs[locaMarc.pos.x][locaMarc.pos.y],nbDrawnMove,0,NULL,locaMarc, ROOT);
-    t_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
+    node_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
     t_localisation newLoc;
     for(int i = 0; i<nbDrawnMove; i++) {
         newLoc = updateLocalisationMap(list_of_move[i], locaMarc, map);
         root->sons[i] = createNode(map.costs[newLoc.pos.x][newLoc.pos.y], nbDrawnMove - 1, 1, root, newLoc, list_of_move[i]);
         enqueueNode(&q, *(root->sons[i]));
+        root->sons[i];
     }
 
     t_node node;

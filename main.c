@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "map.h"
 #include "moves.h"
+#include "tree.h"
 
 int main() {
     t_map map = createMapFromFile("..\\maps\\example1.map");
@@ -23,13 +24,27 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+    printf("\n\n\n");
 
-    t_move* moves = drawNbMoves(9);
-    for(int i=0; i<9; i++){
+    int nbmoves = 5;
+    t_move* moves = drawNbMoves(nbmoves);
+    for(int i=0; i<nbmoves; i++){
         printf("move %d : %s   ", i, getMoveAsString(moves[i]));
     }
-
-
-
+    t_orientation ori = NORTH;
+    t_localisation loca = loc_init(3,3,ori);
+    t_node* root = createTree(moves, nbmoves, 2, map, loca);
+    int x= getX(root->localisation), y =getY(root->localisation);
+    printf("Root: soil: %d cost: %d coo: (%d,%d)\n", getSoil(map, x, y), map.costs[x][y],x,y);
+    printf("First layer :\n ");
+    for(int i =0;i<5;i++){
+        x= getX(root->sons[i]->localisation), y =getY(root->sons[i]->localisation);
+        printf("\t soil: %d cost: %d coo: (%d,%d)\n", getSoil(map, x, y), map.costs[x][y],x,y);
+    }
+    printf("Second layer from son 1:\n ");
+    for(int i =0;i<4;i++){
+        x= getX(root->sons[1]->sons[i]->localisation), y =getY(root->sons[1]->sons[i]->localisation);
+        printf("\t soil: %d cost: %d coo: (%d,%d)\n", getSoil(map, x, y), map.costs[x][y],x,y);
+    }
     return 0;
 }

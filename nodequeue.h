@@ -10,20 +10,20 @@
 /**
  * @brief Structure for the queue of integers
  */
-typedef struct s_queue
+typedef struct sn_queue
 {
     t_node* nodes;
     int size;
     int last;
     int first;
-} t_queue;
+} node_queue;
 
 /**
  * @brief Function to create a queue
  * @param size : the size of the queue
  * @return the queue
  */
-t_queue createNodeQueue(int);
+node_queue createNodeQueue(int);
 
 /**
  * @brief Function to enqueue a value in the queue
@@ -31,18 +31,18 @@ t_queue createNodeQueue(int);
  * @param value : the position to enqueue
  * @return none
  */
-void enqueueNode(t_queue *,t_node);
+void enqueueNode(node_queue* , t_node);
 
 /**
  * @brief Function to dequeue a value from the queue
  * @param p_queue : pointer to the queue
  * @return the value dequeued
  */
-t_node dequeueNode(t_queue *);
+t_node dequeueNode(node_queue *);
 /**
  * @brief Function to check if the queue is empty
  * @return integer 1 if empty 0 else
  */
-int isNodeQueueEmpty(t_queue);
+int isNodeQueueEmpty(node_queue);
 
 #endif //UNTITLED1_NODEQUEUE_H
