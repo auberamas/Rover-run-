@@ -55,6 +55,8 @@ t_localisation move(t_localisation, t_move);
  */
 void updateLocalisation(t_localisation *, t_move);
 
+
+
 /**
  *@brief draw a move
  * @return a movement
@@ -65,6 +67,6 @@ t_move drawMove();
  * @brief draw nine movement
  * @return an array of nine movements
  */
- t_move* draw9Moves();
+ t_move* drawNbMoves(int);
 
 #endif //UNTITLED1_MOVES_H

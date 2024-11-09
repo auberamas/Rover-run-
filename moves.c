@@ -172,9 +172,9 @@ t_move drawMove(){
 }
 
 
-t_move* draw9Moves(){
-    t_move* SetOfMove = malloc(9 * sizeof(t_move));
-    for(int i = 0; i<9; i++){
+t_move* drawNbMoves(int nb){
+    t_move* SetOfMove = malloc(nb * sizeof(t_move));
+    for(int i = 0; i<nb; i++){
         SetOfMove[i]=drawMove();
     }
     return SetOfMove;

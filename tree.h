@@ -12,7 +12,7 @@
  */
 typedef struct s_node
 {
-    int value;
+    int value; // value of the square reached
     int depth;
     struct s_node **sons;
     int nbSons; // physical size of the array
@@ -32,11 +32,12 @@ t_node *createNode(int value, int nb_sons, int depth, t_node* parent);
 
 /**
  * @brief generate the tree
- * @param list_of_move the list of 9 drawed moves
- * @param nbMove number of move
+ * @param list_of_move the list of drawed moves
+ * @param nbDrawMove the number of drawed moves breadth of the first stage
+ * @param nbMove number of move to do (depth)
  * @return the root of the tree
  */
-t_node *createTree(t_move* list_of_move, int nbMove);
+t_node *createTree(t_move* list_of_move, int nbDrawMove, int nbMove);
 
 
 #endif //UNTITLED1_TREE_H

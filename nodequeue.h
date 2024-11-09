@@ -1,16 +1,18 @@
 //
-// Created by flasque on 19/10/2024.
+// Created by pierr on 11/9/2024.
 //
 
-#ifndef UNTITLED1_QUEUE_H
-#define UNTITLED1_QUEUE_H
-#include "loc.h"
+#ifndef UNTITLED1_NODEQUEUE_H
+#define UNTITLED1_NODEQUEUE_H
+
+#include "tree.h"
+
 /**
  * @brief Structure for the queue of integers
  */
 typedef struct s_queue
 {
-    t_position *values;
+    t_node* nodes;
     int size;
     int last;
     int first;
@@ -21,7 +23,7 @@ typedef struct s_queue
  * @param size : the size of the queue
  * @return the queue
  */
-t_queue createQueue(int);
+t_queue createNodeQueue(int);
 
 /**
  * @brief Function to enqueue a value in the queue
@@ -29,18 +31,18 @@ t_queue createQueue(int);
  * @param value : the position to enqueue
  * @return none
  */
-void enqueue(t_queue *,t_position);
+void enqueueNode(t_queue *,t_node);
 
 /**
  * @brief Function to dequeue a value from the queue
  * @param p_queue : pointer to the queue
  * @return the value dequeued
  */
-t_position dequeue(t_queue *);
+t_node dequeueNode(t_queue *);
 /**
  * @brief Function to check if the queue is empty
  * @return integer 1 if empty 0 else
  */
-int isQueueEmpty(t_queue);
+int isNodeQueueEmpty(t_queue);
 
-#endif //UNTITLED1_QUEUE_H
+#endif //UNTITLED1_NODEQUEUE_H
