@@ -37,7 +37,7 @@ t_node *createNode(int value, int nb_sons, int depth, t_node* parent);
  * @param nbMove number of move to do (depth)
  * @return the root of the tree
  */
-t_node *createTree(t_move* list_of_move, int nbDrawMove, int nbMove);
+t_node *createTree(t_move* list_of_move, int nbDrawMove, int nbMove, t_map map, t_localisation locaMarc);
 
 
 #endif //UNTITLED1_TREE_H

@@ -6,6 +6,7 @@
 #define UNTITLED1_MOVES_H
 
 #include "loc.h"
+#include "map.h"
 
 /**
  * @brief Array of strings for the possible moves of the robot
@@ -29,7 +30,8 @@ typedef enum e_move
     B_10, // Backward 10 m
     T_LEFT, // Turn left (+90°)
     T_RIGHT, // Turn right (-90°)
-    U_TURN
+    U_TURN,
+    ROOT
 } t_move;
 
 /**
@@ -68,5 +70,14 @@ t_move drawMove();
  * @return an array of nine movements
  */
  t_move* drawNbMoves(int);
+
+ /**
+  * @brief update the localisation with respect to the map and the current localisation
+  * @param move the movement to be done
+  * @param localisation the actual localisation (position+orientation)
+  * @param map the map
+  * @return the updated localisation
+  */
+ t_localisation updateLocalisationMap(t_move move, t_localisation localisation, t_map map);
 
 #endif //UNTITLED1_MOVES_H

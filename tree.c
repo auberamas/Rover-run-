@@ -51,16 +51,18 @@ t_node* createNode(int value, int nb_sons, int depth, t_node* parent){
 
 
 
-t_node* createTree(t_move* list_of_move, int nbDrawMove, int nbMove){ // need to add when crevasse and when outside of the map
-    t_node* root = createNode(-1,nbDrawMove,0,NULL);
-    for(int i = 0; i<nbDrawMove;i++)
-        root->sons[i]= createNode(list_of_move[i],nbDrawMove-1,1,root);
-    t_node node = *root;
-    t_queue q = createNodeQueue(factorialDivision(nbDrawMove,nbDrawMove-nbMove)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeued
-    enqueueNode(&q, node);
+t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc){ // need to add when crevasse and when outside of the map
+    // initialisation of the root
+    t_node* root = createNode(map.costs[locaMarc.pos.x][locaMarc.pos.y],nbDrawnMove,0,NULL,locaMarc, ROOT);
+    t_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
+    t_localisation newLoc;
+    for(int i = 0; i<nbDrawnMove; i++) {
+        newLoc = updateLocalisationMap(list_of_move[i], locaMarc, map);
+        root->sons[i] = createNode(map.costs[newLoc.pos.x][newLoc.pos.y], nbDrawnMove - 1, 1, root, newLoc, list_of_move[i]);
+        enqueueNode(&q, *(root->sons[i]));
+    }
 
-    int notLast =1;
-
+    t_node node;
     while (!isNodeQueueEmpty(q)){
         node = dequeueNode(&q);
         if(node.depth!=nbMove){
