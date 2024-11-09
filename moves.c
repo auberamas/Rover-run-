@@ -179,3 +179,43 @@ t_move* drawNbMoves(int nb){
     }
     return SetOfMove;
 }
+
+t_localisation updateLocalisationMap(t_move movement, t_localisation localisation, t_map map){
+    int rand_turn = rand()%2;
+    switch (getSoil(map, getX(localisation), getY(localisation))) {
+        case PLAIN:
+            break;
+        case REG:
+            break; // Need to find a way to do less move in the next phase
+        case CREVASSE:
+            localisation.pos.x=-1;
+            localisation.pos.y=-1;
+            return localisation;
+            break;
+        case ERG :
+            switch (movement) {
+                case F_10:
+                    break;
+                case B_10:
+                    break;
+                case T_LEFT:
+                    break;
+                case T_RIGHT:
+                    break;
+                case F_20:
+                    movement = F_10;
+                    break;
+                case F_30 :
+                    movement = F_20;
+                    break;
+                case U_TURN:
+                    if(rand_turn)
+                        movement = T_RIGHT;
+                    else
+                        movement = T_LEFT;
+                    break;
+            }
+            break;
+    }
+    return move(localisation, movement);
+}

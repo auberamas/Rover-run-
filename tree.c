@@ -34,7 +34,7 @@ int factorialDivision(int a, int b){
 
 
 
-t_node* createNode(int value, int nb_sons, int depth, t_node* parent){
+t_node* createNode(int value, int nb_sons, int depth, t_node* parent, t_localisation localisation, t_move movement){
     t_node *new_node;
     new_node = (t_node *)malloc(sizeof(t_node));
     new_node->value = value;
@@ -46,6 +46,8 @@ t_node* createNode(int value, int nb_sons, int depth, t_node* parent){
     }
     new_node->depth = depth;
     new_node->parent = parent;
+    new_node->localisation = localisation;
+    new_node->movement = movement;
     return new_node;
 }
 
@@ -66,8 +68,19 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
     while (!isNodeQueueEmpty(q)){
         node = dequeueNode(&q);
         if(node.depth!=nbMove){
-
+            int find = 0;
+            int idx = 0;
+            for(int i = 0; i<node.parent->nbSons; i++) {
+                if(!find && node.parent->sons[i]->movement == node.movement) {
+                    find == 1;
+                }else{
+                    t_move itsmove = node.parent->sons[i]->movement;
+                    newLoc = updateLocalisationMap(itsmove, node.localisation, map);
+                    node.sons[idx] = createNode(map.costs[newLoc.pos.x][newLoc.pos.y], node.nbSons -1, node.depth+1, &node, newLoc, itsmove);
+                    enqueueNode(&q,*(node.sons[idx]));
+                    idx ++;
+                }
+            }
         }
     }
 }
-

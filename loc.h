@@ -80,4 +80,22 @@ t_position UP(t_position);
  */
 t_position DOWN(t_position);
 
+/**
+ *
+ * @param pos
+ * @return
+ */
+int getX(t_localisation loca){
+    return loca.pos.x;
+}
+
+/**
+ *
+ * @param pos
+ * @return
+ */
+int getY(t_localisation loca){
+    return loca.pos.y;
+}
+
 #endif //UNTITLED1_LOC_H
