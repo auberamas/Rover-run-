@@ -62,8 +62,6 @@ void displayMap(t_map);
  * @param y
  * @return
  */
-t_soil getSoil(t_map map, int x, int y){
-    return map.soils[x][y];
-}
+t_soil getSoil(t_map map, int x, int y);
 
 #endif //UNTITLED1_MAP_H

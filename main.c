@@ -31,9 +31,13 @@ int main() {
     for(int i=0; i<nbmoves; i++){
         printf("move %d : %s   ", i, getMoveAsString(moves[i]));
     }
+
     t_orientation ori = NORTH;
     t_localisation loca = loc_init(3,3,ori);
+
     t_node* root = createTree(moves, nbmoves, 2, map, loca);
+
+
     int x= getX(root->localisation), y =getY(root->localisation);
     printf("Root: soil: %d cost: %d coo: (%d,%d)\n", getSoil(map, x, y), map.costs[x][y],x,y);
     printf("First layer :\n ");

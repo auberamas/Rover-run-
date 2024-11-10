@@ -182,16 +182,17 @@ t_move* drawNbMoves(int nb){
 
 t_localisation updateLocalisationMap(t_move movement, t_localisation localisation, t_map map){
     int rand_turn = rand()%2;
+    t_localisation new_loc;
     switch (getSoil(map, getX(localisation), getY(localisation))) {
         case PLAIN:
             break;
         case REG:
             break; // Need to find a way to do less move in the next phase
         case CREVASSE:
-            localisation.pos.x=-1;
-            localisation.pos.y=-1;
-            return localisation;
-            break;
+            new_loc.ori = NORTH;
+            new_loc.pos.x=-1;
+            new_loc.pos.y=-1;
+            return new_loc;
         case ERG :
             switch (movement) {
                 case F_10:

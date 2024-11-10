@@ -85,17 +85,13 @@ t_position DOWN(t_position);
  * @param pos
  * @return
  */
-int getX(t_localisation loca){
-    return loca.pos.x;
-}
+int getX(t_localisation loca);
 
 /**
  *
  * @param pos
  * @return
  */
-int getY(t_localisation loca){
-    return loca.pos.y;
-}
+int getY(t_localisation loca);
 
 #endif //UNTITLED1_LOC_H

@@ -50,3 +50,10 @@ t_position DOWN(t_position pos)
     return new_pos;
 }
 
+int getX(t_localisation loca){
+    return loca.pos.x;
+}
+
+int getY(t_localisation loca){
+    return loca.pos.y;
+}
