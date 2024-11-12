@@ -4,6 +4,7 @@
 
 #include "moves.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -183,17 +184,22 @@ t_move* drawNbMoves(int nb){
 t_localisation updateLocalisationMap(t_move movement, t_localisation localisation, t_map map){
     int rand_turn = rand()%2;
     t_localisation new_loc;
+    printf(" move %s ", getMoveAsString(movement));
     switch (getSoil(map, getX(localisation), getY(localisation))) {
         case PLAIN:
+            printf("plain");
             break;
         case REG:
+            printf("reg");
             break; // Need to find a way to do less move in the next phase
         case CREVASSE:
+            printf("crevasse");
             new_loc.ori = NORTH;
             new_loc.pos.x=-1;
             new_loc.pos.y=-1;
             return new_loc;
         case ERG :
+            printf("erg");
             switch (movement) {
                 case F_10:
                     break;
@@ -218,5 +224,13 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
             }
             break;
     }
-    return move(localisation, movement);
+    new_loc = move(localisation, movement);
+    if(getSoil(map, getX(new_loc), getY(new_loc)) == CREVASSE){
+        printf("arrived in crevasse");
+        new_loc.ori = NORTH;
+        new_loc.pos.x=-1;
+        new_loc.pos.y=-1;
+        return new_loc;
+    }
+    return new_loc;
 }
