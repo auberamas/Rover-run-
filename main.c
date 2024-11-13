@@ -41,12 +41,12 @@ int main() {
     int x= getX(root->localisation), y =getY(root->localisation);
     printf("Root: soil: %d cost: %d coor: (%d,%d)\n", getSoil(map, x, y), map.costs[x][y],x,y);
     printf("First layer :\n ");
-    for(int i =0;i<5;i++){
+    for(int i =0;i<root->nbSons;i++){
         x= getX(root->sons[i]->localisation), y =getY(root->sons[i]->localisation);
         printf("\t soil: %d cost: %d coor: (%d,%d) %s\n", getSoil(map, x, y), map.costs[x][y],x,y,getMoveAsString(root->sons[i]->movement));
     }
     printf("Second layer from son 1:\n ");
-    for(int i =0;i<4;i++){
+    for(int i =0; i < root->sons[0]->nbSons; i++){
         x= getX(root->sons[1]->sons[i]->localisation), y =getY(root->sons[1]->sons[i]->localisation);
         printf("\t soil: %d cost: %d coor: (%d,%d) move : %s \n", getSoil(map, x, y), map.costs[x][y],x,y, getMoveAsString(root->sons[1]->sons[i]->movement));
     }

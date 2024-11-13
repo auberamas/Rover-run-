@@ -52,7 +52,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
             root->nbSons--;
         }
     }
-    printf("Sons of root added.\n");
+    printf("\nSons of root added.\n");
 
     int layer = 0;
     t_node node;
@@ -63,7 +63,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
             printf("\nFrom layer %d :", layer);
         }
         printf("\n\tAdding sons : ");
-        if(node.depth!=nbMove && node.value != 0){
+        if(node.depth!=nbMove && node.value != 0){ //there won't have crevasses in the queue because we don't even create them
             int find = 0;
             idx = 0;
             for(int i = 0; i<node.parent->nbSons; i++) {
@@ -85,17 +85,44 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
                 }
             }
         } else{
+            printf("Sons not created: the node is at the base or at the leaves level");
             node.nbSons = 0;
         }
     }
     printf("\nTree successfully generated.\n");
     return root;
 }
-/**
+
 t_node minLeaf(t_node node){
-    if()
-    for(int i=0; i<node.nbSons; i++){
-        minLeaf(node.sons[i]);
+    if(node.nbSons == 0){
+        return node;
     }
+    t_node minSons[node.nbSons];
+    for(int i=0; i<node.nbSons;i++){
+        minSons[i]= minLeaf(*(node.sons[i]));
+    }
+    // find the smallest node in the list of leaf
+    t_node minNode = minSons[0];
+    for(int i=1; i<node.nbSons; i++){
+        if(minSons[i].value < minNode.value){
+            minNode = minSons[i];
+        }else{
+            if(minSons[i].value == minNode.value && minSons[i].depth < minNode.depth){
+                minNode = minSons[i];
+            }
+        }
+    }
+    return minNode;
 }
-**/
+
+t_node* wayToLeafFromLeaf(t_node leaf){
+    t_node* tab = (t_node*) malloc((leaf.depth +1)*sizeof(t_node));
+    for(int i =leaf.depth; i>=0 ; i--){
+        tab[i]=leaf;
+        leaf = *(leaf.parent);
+    }
+    return tab;
+}
+
+
+

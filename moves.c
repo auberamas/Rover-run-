@@ -193,6 +193,7 @@ t_localisation doInvalidLoc(){
 int checkMove(t_move move,t_localisation loc, t_map map){
     int validLoc = 1;
     int steps = 1;
+    t_localisation new_loc = loc;
     t_move new_move= F_10;
     switch (move) {
         case F_30:
@@ -209,8 +210,8 @@ int checkMove(t_move move,t_localisation loc, t_map map){
     }
 
     for(int i = 0; i<steps; i++){
-        updateLocalisation(&loc,new_move);
-        if(getSoil(map, getX(loc), getY(loc)) == CREVASSE){
+        updateLocalisation(&new_loc,new_move);
+        if(getSoil(map, getX(new_loc), getY(new_loc)) == CREVASSE){
             validLoc = 0;
             return validLoc;
         }
@@ -259,7 +260,7 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
     }
 
     if(movement == F_10 || movement == F_20 || movement == F_30 || movement == B_10){
-        if (!checkMove(movement, localisation, map)){
+        if (checkMove(movement, localisation, map)==0){
             printf(" found a crevasse on my way");
             return doInvalidLoc();
         }
