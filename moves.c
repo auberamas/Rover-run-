@@ -181,6 +181,43 @@ t_move* drawNbMoves(int nb){
     return SetOfMove;
 }
 
+t_localisation doInvalidLoc(){
+    t_localisation new_loc;
+    printf("crevasse on the way");
+    new_loc.ori = NORTH;
+    new_loc.pos.x=-1;
+    new_loc.pos.y=-1;
+    return new_loc;
+}
+
+int checkMove(t_move move,t_localisation loc, t_map map){
+    int validLoc = 1;
+    int steps = 1;
+    t_move new_move= F_10;
+    switch (move) {
+        case F_30:
+            steps = 3;
+            break;
+        case F_20:
+            steps = 2;
+            break;
+        case B_10:
+            new_move = B_10;
+            break;
+        default:
+            break;
+    }
+
+    for(int i = 0; i<steps; i++){
+        updateLocalisation(&loc,new_move);
+        if(getSoil(map, getX(loc), getY(loc)) == CREVASSE){
+            validLoc = 0;
+            return validLoc;
+        }
+    }
+    return validLoc;
+}
+
 t_localisation updateLocalisationMap(t_move movement, t_localisation localisation, t_map map){
     int rand_turn = rand()%2;
     t_localisation new_loc;
@@ -193,12 +230,8 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
             printf("reg");
             break; // Need to find a way to do less move in the next phase
         case CREVASSE:
-            printf("crevasse");
-            new_loc.ori = NORTH;
-            new_loc.pos.x=-1;
-            new_loc.pos.y=-1;
-            return new_loc;
-        case ERG :
+            return doInvalidLoc(); // If we did something wrong, and we arrived in a crevasse
+        case ERG:
             printf("erg");
             switch (movement) {
                 case F_10:
@@ -224,13 +257,13 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
             }
             break;
     }
-    new_loc = move(localisation, movement);
-    if(getSoil(map, getX(new_loc), getY(new_loc)) == CREVASSE){
-        printf("arrived in crevasse");
-        new_loc.ori = NORTH;
-        new_loc.pos.x=-1;
-        new_loc.pos.y=-1;
-        return new_loc;
+
+    if(movement == F_10 || movement == F_20 || movement == F_30 || movement == B_10){
+        if (!checkMove(movement, localisation, map)){
+            printf(" found a crevasse on my way");
+            return doInvalidLoc();
+        }
     }
+    new_loc = move(localisation, movement);
     return new_loc;
 }

@@ -80,4 +80,19 @@ t_move drawMove();
   */
  t_localisation updateLocalisationMap(t_move move, t_localisation localisation, t_map map);
 
+
+/**
+ * @brief ckeck throughout the move if we pass by a crevasse
+ * @param move the movement to be done
+ * @param localisation the actual localisation (position+orientation)
+ * @param map the map
+ * @return 0 if the localisation is leads to a crevasse and 1 else
+ */
+ int checkMove(t_move move, t_localisation localisation, t_map map);
+
+ /**
+  * @brief create an invalid Loc
+  * @return a position whith pos at -1 -1
+  */
+ t_localisation doInvalidLoc();
 #endif //UNTITLED1_MOVES_H

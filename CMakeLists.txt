@@ -16,5 +16,4 @@ add_executable(untitled1 main.c
         node.h
         tree.c
         tree.h
-        nodequeue.c
-        nodequeue.h)
+)

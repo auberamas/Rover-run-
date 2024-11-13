@@ -7,7 +7,6 @@
 
 #include "node.h"
 #include "map.h"
-#include "nodequeue.h"
 
 
 
@@ -24,5 +23,11 @@
  */
 t_node *createTree(t_move* list_of_move, int nbDrawMove, int nbMove, t_map map, t_localisation locaMarc);
 
+/**
+ * @brief find the smallest leaf in the tree
+ * @param node
+ * @return the smallest lef of the tree
+ */
+t_node minLeaf(t_node node);
 
 #endif //UNTITLED1_TREE_H

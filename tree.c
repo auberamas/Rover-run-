@@ -85,9 +85,17 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
                 }
             }
         } else{
-            break;
+            node.nbSons = 0;
         }
     }
     printf("\nTree successfully generated.\n");
     return root;
 }
+/**
+t_node minLeaf(t_node node){
+    if()
+    for(int i=0; i<node.nbSons; i++){
+        minLeaf(node.sons[i]);
+    }
+}
+**/
