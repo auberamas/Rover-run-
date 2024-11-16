@@ -42,6 +42,7 @@ t_orientation rotate(t_orientation ori, t_move move)
             rst=2;
             break;
         default:
+            rst = 0;
             break;
     }
     return (ori+rst)%4;
@@ -144,9 +145,16 @@ char *getMoveAsString(t_move move)
 
 t_localisation move(t_localisation loc, t_move move)
 {
-    t_localisation new_loc;
-    new_loc.ori = rotate(loc.ori, move);
-    new_loc = translate(loc, move);
+    t_localisation new_loc=loc;
+    if ((move >=T_LEFT) && (move <= U_TURN))
+    {
+        new_loc.ori = rotate(loc.ori, move);
+    }
+    else
+    {
+        new_loc = translate(loc, move);
+    }
+
     return new_loc;
 }
 
