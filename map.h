@@ -68,4 +68,6 @@ t_soil getSoil(t_map map, int x, int y);
 
 int getCost(t_map map, t_localisation loc);
 
+void displayMapWithMARC(t_map, t_localisation);
+
 #endif //UNTITLED1_MAP_H

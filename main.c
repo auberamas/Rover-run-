@@ -3,9 +3,13 @@
 #include "moves.h"
 #include "tree.h"
 
-
+#include <locale.h>
 
 int main() {
+    // Set the locale to UTF-8
+    setlocale(LC_ALL, "");
+    printf("Here is an arrow: \u2191\n");
+
     t_map map = createMapFromFile("..\\maps\\example1.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
     for (int i = 0; i < map.y_max; i++)
@@ -30,8 +34,10 @@ int main() {
 
     int nbDrawnedmoves = 9;
     int nbOfMoves = 6;
-    t_orientation ori = SOUTH;
+    t_orientation ori = NORTH;
     t_localisation loca = loc_init(5,6,ori);//x,y
+
+    displayMapWithMARC(map,loca);
 
     int sizeMoves = 0;
     t_move* path = aPhase(loca,nbDrawnedmoves,nbOfMoves,map,&sizeMoves);

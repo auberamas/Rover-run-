@@ -39,5 +39,6 @@ t_node** wayToLeafFromLeaf(t_node* leaf);
 
 t_move* aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map, int *sizeMoves);
 
+int fullGame();
 
 #endif //UNTITLED1_TREE_H

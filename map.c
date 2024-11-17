@@ -310,4 +310,342 @@ int getCost(t_map map, t_localisation loc){
     return map.costs[getY(loc)][getX(loc)];
 }
 
+void displayMapWithMARC(t_map map, t_localisation loc){
+    /** the rules for display are :
+     * display all soils with 3x3 characters
+     * characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' ' for crevasse
+     */
+    for (int i = 0; i < map.y_max; i++)
+    {
+        for (int rep = 0; rep < 3; rep++)
+        {
+            for (int j = 0; j < map.x_max; j++)
+            {
+                char c[4], ch[5];
+                int doSwitch=1, sizeC=1;
+                if (getX(loc)==i && getY(loc)==j){
+                    switch (loc.ori) {
+                        case NORTH:
+                            switch (rep) {
+                                case 0:
+                                    sizeC=0;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ↑ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "-↑-");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~↑~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^↑^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "?↑?");
+                                            break;
+                                    }
+                                    break;
+                                case 1:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " M ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "-M-");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~M~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^M^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                                case 2:
+                                    sizeC=1;
+                                    doSwitch=1;
+                                    break;
+                            }
+                            break;
+                        case EAST:
+                            switch (rep) {
+                                case 0:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                                case 1:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                                case 2:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                            }
+                            break;
+                        case SOUTH:
+                            switch (rep) {
+                                case 0:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                                case 1:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                                case 2:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                            }
+                            break;
+                        case WEST:
+                            switch (rep) {
+                                case 0:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                                case 1:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                                case 2:
+                                    sizeC=1;
+                                    doSwitch=0;
+                                    switch (map.soils[i][j]) {
+                                        case BASE_STATION:
+                                            strcpy(c, " ^ ");
+                                            break;
+                                        case PLAIN:
+                                            strcpy(c, "---");
+                                            break;
+                                        case ERG:
+                                            strcpy(c, "~~~");
+                                            break;
+                                        case REG:
+                                            strcpy(c, "^^^");
+                                            break;
+                                        case CREVASSE:
+                                            sprintf(c, "%c%c%c", 219, 219, 219);
+                                            break;
+                                        default:
+                                            strcpy(c, "???");
+                                            break;
+                                    }
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if(doSwitch){
+                    switch (map.soils[i][j]) {
+                        case BASE_STATION:
+                            if (rep == 1) {
+                                strcpy(c, " B ");
+                            } else {
+                                strcpy(c, "   ");
+                            }
+                            break;
+                        case PLAIN:
+                            strcpy(c, "---");
+                            break;
+                        case ERG:
+                            strcpy(c, "~~~");
+                            break;
+                        case REG:
+                            strcpy(c, "^^^");
+                            break;
+                        case CREVASSE:
+                            sprintf(c, "%c%c%c", 219, 219, 219);
+                            break;
+                        default:
+                            strcpy(c, "???");
+                            break;
+                    }
+                }
+                if(sizeC)printf("%s", c);
+                else printf("%s", ch);
+            }
+            printf("\n");
+        }
+
+    }
+    return;
+}
 
