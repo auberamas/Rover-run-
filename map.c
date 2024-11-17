@@ -302,7 +302,7 @@ void displayMap(t_map map)
     return;
 }
 
-t_soil getSoil(t_map map, int y, int x){
+t_soil getSoil(t_map map, int x, int y){
     return map.soils[y][x];
 }
 

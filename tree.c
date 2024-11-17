@@ -39,59 +39,63 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
     node_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
     t_localisation newLoc;
     printf("Root initialized.  ");
-    int idx = 0;
     for(int i = 0; i<nbDrawnMove; i++) {
         newLoc = updateLocalisationMap(list_of_move[i], locaMarc, map);
         printf(" x,y : %d,%d", getX(newLoc), getY(newLoc));
-        if (isValidLocalisation(newLoc.pos,map.x_max,map.y_max)){
-            root->sons[idx] = createNode(getCost(map, newLoc), nbDrawnMove - 1, 1, root, newLoc, list_of_move[i]);
-            enqueueNode(&q, *(root->sons[idx]));
-            idx++;
+        if (isValidLocalisation(newLoc.pos,map.x_max,map.y_max) && getCost(map, newLoc)!=0 && nbMove!=1){
+            root->sons[i] = createNode(getCost(map, newLoc), nbDrawnMove - 1, 1, root, newLoc, list_of_move[i]);
+            enqueueNode(&q, *(root->sons[i]));
         }else{
-            printf("Invalid pos or Crevasse.");
-            root->nbSons--;
+            printf("with No Son");
+            if(isValidLocalisation(newLoc.pos,map.x_max,map.y_max)){
+                printf("Base found or leaf.");
+                root->sons[i] = createNode(0, 0, 1, root, newLoc, list_of_move[i]);
+            }else {
+                printf("Invalid pos or Crevasse.");
+                root->sons[i] = createNode(10000, 0, 1, root, newLoc, list_of_move[i]);
+            }
         }
     }
     printf("\nSons of root added.\n");
     // Making all sons
-    int layer = 0;
+    int layer = 0;//for layers display
     t_node node;
     while (!isNodeQueueEmpty(q)){
         node = dequeueNode(&q);
-        if(node.depth!=layer){
-            layer = node.depth;
-            printf("\nFrom layer %d :", layer);
-        }
-        printf("\n\tAdding sons : ");
-        if(node.depth!=nbMove && node.value != 0){ //there won't have crevasses in the queue because we don't even create them
-            int find = 0;
-            idx = 0;
-            for(int i = 0; i<node.parent->nbSons; i++) {
-                if(!find && node.parent->sons[i]->movement == node.movement) {
-                    find == 1;
-                }else{
-                    printf("Son %d ", idx);
-                    t_move itsmove = node.parent->sons[i]->movement;
-                    newLoc = updateLocalisationMap(itsmove, node.localisation, map);
-                    printf("coor (%d,%d) ", getX(newLoc),getY(newLoc));
-                    if (isValidLocalisation(newLoc.pos,map.x_max,map.y_max)){
-                        node.sons[idx] = createNode(getCost(map, newLoc), node.nbSons -1, node.depth+1, &node, newLoc, itsmove);
-                        enqueueNode(&q,*(node.sons[idx]));
-                        idx ++;
-                    } else{
+
+        if(node.depth!=layer){layer = node.depth;printf("\nFrom layer %d :", layer);}//just display layers
+        printf("\n\tAdding sons (%d): ",node.parent->nbSons-1);
+
+        int foundMyself = 0;
+        for(int i = 0; i<node.parent->nbSons; i++) {
+            if(!foundMyself && node.parent->sons[i]->movement == node.movement) {
+                printf("\tSON %d found we I am really. ", i);
+                foundMyself == 1;//to not create a son with the same move
+            }else{
+                printf("\tSON %d ", i);
+                t_move itsMove = node.parent->sons[i]->movement;
+                newLoc = updateLocalisationMap(itsMove, node.localisation, map);// the localisation if the move is correct, (-1,-1) else
+                printf(" coor (%d,%d) ", getX(newLoc),getY(newLoc));
+                if (isValidLocalisation(newLoc.pos,map.x_max,map.y_max) && getCost(map, newLoc)!=0 && node.depth+1!=nbMove){
+                    printf(" NotLeaf ");
+                    node.sons[i] = createNode(getCost(map, newLoc), node.nbSons -1, node.depth+1, &node, newLoc, itsMove);
+                    enqueueNode(&q,*(node.sons[i]));
+                } else{
+                    if(isValidLocalisation(newLoc.pos,map.x_max,map.y_max)){
+                        printf("Base found or leaf.");
+                        node.sons[i] = createNode(getCost(map, newLoc), 0, node.depth+1, &node, newLoc, itsMove);
+                    }else {
                         printf("Invalid pos or Crevasse.");
-                        node.nbSons--;
+                        node.sons[i] = createNode(10000, 0, node.depth+1, &node, newLoc, itsMove);
                     }
                 }
             }
-        } else{
-            printf("Sons not created: the node is at the base or at the leaves level");
-            node.nbSons = 0;
         }
     }
-    printf("\nTree successfully generated.\n");
+    printf("\n\nTree successfully generated.\n\n\n");
     return root;
 }
+
 
 t_node minLeaf(t_node node){
     if(node.nbSons == 0){
@@ -114,6 +118,7 @@ t_node minLeaf(t_node node){
     }
     return minNode;
 }
+
 
 t_node* wayToLeafFromLeaf(t_node leaf){
     t_node* tab = (t_node*) malloc((leaf.depth +1)*sizeof(t_node));

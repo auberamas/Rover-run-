@@ -219,7 +219,7 @@ int checkMove(t_move move,t_localisation loc, t_map map){
 
     for(int i = 0; i<steps; i++){
         updateLocalisation(&new_loc,new_move);
-        if(getSoil(map, getX(new_loc), getY(new_loc)) == CREVASSE){
+        if(!isValidLocalisation(new_loc.pos, map.x_max, map.y_max) || getSoil(map, getX(new_loc), getY(new_loc)) == CREVASSE){
             validLoc = 0;
             return validLoc;
         }
@@ -239,7 +239,7 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
             printf("reg");
             break; // Need to find a way to do less move in the next phase
         case CREVASSE:
-            return doInvalidLoc(); // If we did something wrong, and we arrived in a crevasse
+            return doInvalidLoc(); // Shouldn't append, if we arrived in a crevasse (because we don't enqueue them)
         case ERG:
             printf("erg");
             switch (movement) {
