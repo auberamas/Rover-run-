@@ -37,6 +37,7 @@ t_node* minLeaf(t_node* node);
  */
 t_node** wayToLeafFromLeaf(t_node* leaf);
 
-t_node** aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map);
+t_move* aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map, int *sizeMoves);
+
 
 #endif //UNTITLED1_TREE_H

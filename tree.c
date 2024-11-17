@@ -113,7 +113,7 @@ t_node* minLeaf(t_node* node){
     }
     t_node** minSons = malloc(node->nbSons * sizeof(t_node*));
     for(int i=0; i<node->nbSons;i++){
-        if(node->sons[i] == NULL) printf("mange tes morts");
+        if(DEBUG){if(node->sons[i] == NULL) printf("mange tes morts");}
         minSons[i]= minLeaf(node->sons[i]);
     }
     // find the smallest node in the list of leaf
@@ -131,14 +131,14 @@ t_node* minLeaf(t_node* node){
 t_node** wayToLeafFromLeaf(t_node* node){
     t_node** tab = (t_node**) malloc((node->depth +1)*sizeof(t_node*));
     for(int i =node->depth; i>=0 ; i--){
-        printf("%d, %d, %d\n",i,node->depth,node->value);
+        if(DEBUG)printf("%d, %d, %d\n",i,node->depth,node->value);
         tab[i]=node;
         if(node->depth!=0) {node = node->parent;}
     }
     return tab;
 }
 
-t_node** aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map){
+t_move* aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map, int* sizeMoves){
     t_move* moves = drawNbMoves(nbDrawnedMoves);
     printf("Moves Drawned :\n\t");
     for(int i=0; i<nbDrawnedMoves; i++){
@@ -148,9 +148,15 @@ t_node** aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map ma
 
     t_node* bestLeaf = minLeaf(root);
     int x= getX(bestLeaf->localisation), y =getY(bestLeaf->localisation);
-    printf("\t soil: %d cost: %d coor: (%d,%d) %s\n", getSoil(map, x, y), map.costs[y][x],x,y,getMoveAsString(bestLeaf->movement));
+    if(DEBUG)printf("\t soil: %d cost: %d coor: (%d,%d) %s\n", getSoil(map, x, y), map.costs[y][x],x,y,getMoveAsString(bestLeaf->movement));
     t_node** path = wayToLeafFromLeaf(bestLeaf);
-    for(int i=0;i<bestLeaf->depth+1;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]->movement));
-    printf("value : %d", path[bestLeaf->depth]->value);
+
+    if(DEBUG)for(int i=0;i<bestLeaf->depth+1;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]->movement));
+    if(DEBUG)printf("value : %d", path[bestLeaf->depth]->value);
+
+    *sizeMoves = bestLeaf->depth;
+    t_move* lMoves = malloc(*sizeMoves * sizeof(t_move));
+    for(int i=0; i<=*sizeMoves;i++)lMoves[i]=path[i]->movement;
+    return lMoves;
 }
 
