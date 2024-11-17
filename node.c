@@ -37,11 +37,11 @@ node_queue createNodeQueue(int size)
     queue.size = size;
     queue.first = 0;
     queue.last = 0;
-    queue.nodes = (t_node *)malloc(size * sizeof(t_node));
+    queue.nodes = (t_node **)malloc(size * sizeof(t_node*));
     return queue;
 }
 
-void enqueueNode(node_queue *p_queue, t_node node)
+void enqueueNode(node_queue *p_queue, t_node* node)
 {
     // the queue must not be full
     assert((p_queue->last - p_queue->first) < p_queue->size);
@@ -50,7 +50,7 @@ void enqueueNode(node_queue *p_queue, t_node node)
     return;
 }
 
-t_node dequeueNode(node_queue* p_queue)
+t_node* dequeueNode(node_queue* p_queue)
 {
     // the queue must not be empty
     assert(p_queue->last != p_queue->first);

@@ -28,14 +28,14 @@ t_node *createTree(t_move* list_of_move, int nbDrawMove, int nbMove, t_map map, 
  * @param node
  * @return the smallest leaf of the tree
  */
-t_node minLeaf(t_node node);
+t_node* minLeaf(t_node* node);
 
 /**
  * @brief gives the list of node from the root to the leaf
  * @param leaf the leaf
  * @return a table of node wich is the way to the root
  */
-t_node* wayToLeafFromLeaf(t_node leaf);
+t_node** wayToLeafFromLeaf(t_node* leaf);
 
 
 #endif //UNTITLED1_TREE_H
