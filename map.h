@@ -5,6 +5,8 @@
 #ifndef UNTITLED1_MAP_H
 #define UNTITLED1_MAP_H
 
+#include "loc.h"
+
 #define COST_UNDEF 65535
 /**
  * @brief Enum for the possible soils of the map
@@ -63,5 +65,7 @@ void displayMap(t_map);
  * @return
  */
 t_soil getSoil(t_map map, int x, int y);
+
+int getCost(t_map map, t_localisation loc);
 
 #endif //UNTITLED1_MAP_H

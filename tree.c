@@ -35,7 +35,7 @@ int factorialDivision(int a, int b){
 t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc){ // need to add when crevasse and when outside of the map
     printf("\nStarting to create the tree.\n");
     // initialisation of the root
-    t_node* root = createNode(map.costs[getX(locaMarc)][getY(locaMarc)],nbDrawnMove,0,NULL,locaMarc, ROOT);
+    t_node* root = createNode(getCost(map, locaMarc),nbDrawnMove,0,NULL,locaMarc, ROOT);
     node_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
     t_localisation newLoc;
     printf("Root initialized.  ");
@@ -44,7 +44,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
         newLoc = updateLocalisationMap(list_of_move[i], locaMarc, map);
         printf(" x,y : %d,%d", getX(newLoc), getY(newLoc));
         if (isValidLocalisation(newLoc.pos,map.x_max,map.y_max)){
-            root->sons[idx] = createNode(map.costs[getX(newLoc)][getY(newLoc)], nbDrawnMove - 1, 1, root, newLoc, list_of_move[i]);
+            root->sons[idx] = createNode(getCost(map, newLoc), nbDrawnMove - 1, 1, root, newLoc, list_of_move[i]);
             enqueueNode(&q, *(root->sons[idx]));
             idx++;
         }else{
@@ -53,7 +53,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
         }
     }
     printf("\nSons of root added.\n");
-
+    // Making all sons
     int layer = 0;
     t_node node;
     while (!isNodeQueueEmpty(q)){
@@ -75,7 +75,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
                     newLoc = updateLocalisationMap(itsmove, node.localisation, map);
                     printf("coor (%d,%d) ", getX(newLoc),getY(newLoc));
                     if (isValidLocalisation(newLoc.pos,map.x_max,map.y_max)){
-                        node.sons[idx] = createNode(map.costs[getX(newLoc)][getY(newLoc)], node.nbSons -1, node.depth+1, &node, newLoc, itsmove);
+                        node.sons[idx] = createNode(getCost(map, newLoc), node.nbSons -1, node.depth+1, &node, newLoc, itsmove);
                         enqueueNode(&q,*(node.sons[idx]));
                         idx ++;
                     } else{

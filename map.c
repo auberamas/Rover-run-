@@ -302,6 +302,12 @@ void displayMap(t_map map)
     return;
 }
 
-t_soil getSoil(t_map map, int x, int y){
-    return map.soils[x][y];
+t_soil getSoil(t_map map, int y, int x){
+    return map.soils[y][x];
 }
+
+int getCost(t_map map, t_localisation loc){
+    return map.costs[getY(loc)][getX(loc)];
+}
+
+
