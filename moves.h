@@ -8,6 +8,8 @@
 #include "loc.h"
 #include "map.h"
 
+#define DEBUG 0
+
 /**
  * @brief Array of strings for the possible moves of the robot
  */

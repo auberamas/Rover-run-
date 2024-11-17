@@ -3,6 +3,8 @@
 #include "moves.h"
 #include "tree.h"
 
+
+
 int main() {
     t_map map = createMapFromFile("..\\maps\\example1.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
@@ -28,14 +30,14 @@ int main() {
 
     int nbDrawnedmoves = 9;
     int nbOfMoves = 6;
+    t_orientation ori = SOUTH;
+    t_localisation loca = loc_init(5,6,ori);//x,y
+
+
     t_move* moves = drawNbMoves(nbDrawnedmoves);
     for(int i=0; i<nbDrawnedmoves; i++){
         printf("move %d : %s   ", i, getMoveAsString(moves[i]));
     }
-
-    t_orientation ori = SOUTH;
-    t_localisation loca = loc_init(5,6,ori);//x,y
-
     t_node* root = createTree(moves, nbDrawnedmoves, nbOfMoves, map, loca);
 
     t_node* bestLeaf = minLeaf(root);
@@ -44,6 +46,8 @@ int main() {
     t_node** path = wayToLeafFromLeaf(bestLeaf);
     for(int i=0;i<bestLeaf->depth+1;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]->movement));
     printf("value : %d", path[bestLeaf->depth]->value);
+
+
 
 
 

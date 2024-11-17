@@ -191,7 +191,7 @@ t_move* drawNbMoves(int nb){
 
 t_localisation doInvalidLoc(){
     t_localisation new_loc;
-    printf("crevasse on the way");
+    if(DEBUG)printf("crevasse on the way");
     new_loc.ori = NORTH;
     new_loc.pos.x=-1;
     new_loc.pos.y=-1;
@@ -230,18 +230,18 @@ int checkMove(t_move move,t_localisation loc, t_map map){
 t_localisation updateLocalisationMap(t_move movement, t_localisation localisation, t_map map){
     int rand_turn = rand()%2;
     t_localisation new_loc;
-    printf(" move %s ", getMoveAsString(movement));
+    if(DEBUG)printf(" move %s ", getMoveAsString(movement));
     switch (getSoil(map, getX(localisation), getY(localisation))) {
         case PLAIN:
-            printf("plain");
+            if(DEBUG)printf("plain");
             break;
         case REG:
-            printf("reg");
+            if(DEBUG)printf("reg");
             break; // Need to find a way to do less move in the next phase
         case CREVASSE:
             return doInvalidLoc(); // Shouldn't append, if we arrived in a crevasse (because we don't enqueue them)
         case ERG:
-            printf("erg");
+            if(DEBUG)printf("erg");
             switch (movement) {
                 case F_10:
                     break;
@@ -269,7 +269,7 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
 
     if(movement == F_10 || movement == F_20 || movement == F_30 || movement == B_10){
         if (checkMove(movement, localisation, map)==0){
-            printf(" found a crevasse on my way");
+            if(DEBUG)printf(" found a crevasse on my way");
             return doInvalidLoc();
         }
     }
