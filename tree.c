@@ -154,9 +154,11 @@ t_move* aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map
     if(DEBUG)for(int i=0;i<bestLeaf->depth+1;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]->movement));
     if(DEBUG)printf("value : %d", path[bestLeaf->depth]->value);
 
-    *sizeMoves = bestLeaf->depth;
+    //HERE SHOULD FREE THE TREE
+
+    *sizeMoves = bestLeaf->depth+1;
     t_move* lMoves = malloc(*sizeMoves * sizeof(t_move));
-    for(int i=0; i<=*sizeMoves;i++)lMoves[i]=path[i]->movement;
+    for(int i=0; i<*sizeMoves;i++)lMoves[i]=path[i]->movement;
     return lMoves;
 }
 

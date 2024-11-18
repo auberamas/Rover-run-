@@ -3,12 +3,8 @@
 #include "moves.h"
 #include "tree.h"
 
-#include <locale.h>
 
 int main() {
-    // Set the locale to UTF-8
-    setlocale(LC_ALL, "");
-    printf("Here is an arrow: \u2191\n");
 
     t_map map = createMapFromFile("..\\maps\\example1.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
@@ -33,7 +29,7 @@ int main() {
     printf("\n\n\n");
 
     int nbDrawnedmoves = 9;
-    int nbOfMoves = 6;
+    int nbOfMoves = 5;
     t_orientation ori = NORTH;
     t_localisation loca = loc_init(5,6,ori);//x,y
 
@@ -41,8 +37,11 @@ int main() {
 
     int sizeMoves = 0;
     t_move* path = aPhase(loca,nbDrawnedmoves,nbOfMoves,map,&sizeMoves);
-    for(int i=0;i<=sizeMoves;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]));
+    for(int i=0;i<sizeMoves;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]));
 
+    updateAnimPhase(map, path, sizeMoves, &loca);
+
+    printf("(%d,%d)", getX(loca), getY(loca));
 
     return 0;
 }

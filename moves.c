@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <unistd.h>
+
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
 
@@ -275,4 +277,26 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
     }
     new_loc = move(localisation, movement);
     return new_loc;
+}
+
+
+
+void updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc){
+    printf("Initial position: %s\n", getMoveAsString(moves[0]));
+    displayMapWithMARC(map, *loc);
+    printf("============================================================================================\n");
+    for (int i = 1; i < size; ++i) {
+        updateLocalisation(loc, moves[i]);
+        sleep(1);
+        printf("Moves number %d: %s\n", i, getMoveAsString(moves[i]));
+        displayMapWithMARC(map, *loc);
+        printf("============================================================================================\n");
+
+    }
+}
+
+void updatePhase(t_move* moves, int size,t_localisation* loc){
+    for (int i = 1; i < size; i++) {
+        updateLocalisation(loc, moves[i]);
+    }
 }

@@ -97,4 +97,9 @@ t_move drawMove();
   * @return a position whith pos at -1 -1
   */
  t_localisation doInvalidLoc();
+
+void updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc);
+
+void updatePhase(t_move* moves, int size,t_localisation* loc);
+
 #endif //UNTITLED1_MOVES_H
