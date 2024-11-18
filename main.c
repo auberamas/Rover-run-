@@ -29,8 +29,8 @@ int main() {
 
     int nbDrawnedmoves = 9;
     int nbOfMoves = 5;
-    t_orientation ori = SOUTH;
-    t_localisation loca = loc_init(15,16,ori);//x,y
+    t_orientation ori = EAST;
+    t_localisation loca = loc_init(19,27,ori);//x,y
 
     int nbPhase = phaseUntilBase(map, loca, nbDrawnedmoves, nbOfMoves,1);
     printf("Base found in %d phases",nbPhase);

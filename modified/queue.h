@@ -37,10 +37,5 @@ void enqueue(t_queue *,t_position);
  * @return the value dequeued
  */
 t_position dequeue(t_queue *);
-/**
- * @brief Function to check if the queue is empty
- * @return integer 1 if empty 0 else
- */
-int isQueueEmpty(t_queue);
 
 #endif //UNTITLED1_QUEUE_H

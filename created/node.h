@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-/*file creating a node structure (for tree) and a queue structure for node
+//file creating a node structure (for tree) and a queue structure for node
 
 /*STRUCTURE FOR NODE : */
 /**

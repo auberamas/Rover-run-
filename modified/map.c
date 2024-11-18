@@ -93,11 +93,7 @@ void removeFalseCrevasses(t_map map)
             t_position pos;
             pos.x = jmin;
             pos.y = imin;
-            t_position lp, rp, up, dp;
-            lp = LEFT(pos);
-            rp = RIGHT(pos);
-            up = UP(pos);
-            dp = DOWN(pos);
+            t_position lp=LEFT(pos), rp=RIGHT(pos), up= UP(pos), dp= DOWN(pos);
             int min_neighbour = COST_UNDEF;
             if (isValidLocalisation(lp, map.x_max, map.y_max))
             {
@@ -139,13 +135,9 @@ void calculateCosts(t_map map)
         t_position pos = dequeue(&queue);
         // get its self cost
         int self_cost = _soil_cost[map.soils[pos.y][pos.x]];
-        // get ts neighbours
-        t_position lp, rp, up, dp;
-        lp = LEFT(pos);
-        rp = RIGHT(pos);
-        up = UP(pos);
-        dp = DOWN(pos);
-        // get the mimimum cost of the neighbours
+        // get its neighbours
+        t_position lp=LEFT(pos), rp=RIGHT(pos), up= UP(pos), dp= DOWN(pos);
+        // get the minimum cost of the neighbours
         int min_cost = COST_UNDEF;
         if (isValidLocalisation(lp, map.x_max, map.y_max))
         {
@@ -188,9 +180,6 @@ void calculateCosts(t_map map)
             enqueue(&queue, dp);
         }
     }
-
-
-    return;
 }
 /* definition of exported functions */
 
@@ -205,7 +194,6 @@ t_map createMapFromFile(char *filename)
 
     t_map map;
     int xdim, ydim;     // dimensions of the map
-    char buffer[100];   // buffer for reading the file line by line
 
     FILE *file = fopen(filename,"rt");
     if (file == NULL)
@@ -456,7 +444,7 @@ void displayMapWithMARC(t_map map, t_localisation loc){
                                             strcpy(c, "^S^");
                                             break;
                                         case CREVASSE:
-                                            sprintf(c, "%cS%c", 219, 219, 219);
+                                            sprintf(c, "%cS%c", 219, 219);
                                             break;
                                         default:
                                             strcpy(c, "?S?");
@@ -534,6 +522,5 @@ void displayMapWithMARC(t_map map, t_localisation loc){
         }
 
     }
-    return;
 }
 

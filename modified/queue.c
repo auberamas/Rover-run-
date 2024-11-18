@@ -39,7 +39,3 @@ t_position dequeue(t_queue *p_queue)
     p_queue->first++;
     return p_queue->values[(p_queue->first - 1) % p_queue->size];
 }
-
-int isQueueEmpty(t_queue q){
-    return (q.first == q.last);
-}

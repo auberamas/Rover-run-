@@ -47,7 +47,6 @@ void enqueueNode(node_queue *p_queue, t_node* node)
     assert((p_queue->last - p_queue->first) < p_queue->size);
     p_queue->nodes[(p_queue->last) % p_queue->size] = node;
     p_queue->last++;
-    return;
 }
 
 t_node* dequeueNode(node_queue* p_queue)

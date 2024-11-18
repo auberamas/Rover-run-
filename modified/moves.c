@@ -155,7 +155,8 @@ t_localisation move(t_localisation loc, t_move move)
     }
     else
     {
-        new_loc = translate(loc, move);
+        if(move==ROOT)new_loc=loc;
+        else new_loc = translate(loc, move);
     }
 
     return new_loc;
@@ -238,11 +239,11 @@ int checkMove(t_move move,t_localisation loc, t_map map){
 }
 
 t_localisation updateLocalisationMap(t_move movement, t_localisation localisation, t_map map){
-    srand(time(0));
-    int rand_turn = rand()%2;
-    t_localisation new_loc;
     if(DEBUG)printf(" move %s ", getMoveAsString(movement));
     switch (getSoil(map, getX(localisation), getY(localisation))) {
+        case BASE_STATION:
+            if(DEBUG)printf("base");
+            break;
         case PLAIN:
             if(DEBUG)printf("plain");
             break;
@@ -255,12 +256,16 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
             if(DEBUG)printf("erg");
             switch (movement) {
                 case F_10:
+                    movement = ROOT; //root will do nothing in the fct move(
                     break;
                 case B_10:
+                    movement = ROOT;
                     break;
                 case T_LEFT:
+                    movement = ROOT;
                     break;
                 case T_RIGHT:
+                    movement = ROOT;
                     break;
                 case F_20:
                     movement = F_10;
@@ -269,6 +274,8 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
                     movement = F_20;
                     break;
                 case U_TURN:
+                    srand(time(0));
+                    int rand_turn = rand()%2;
                     if(rand_turn)
                         movement = T_RIGHT;
                     else
@@ -284,7 +291,7 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
             return doInvalidLoc();
         }
     }
-    new_loc = move(localisation, movement);
+    t_localisation new_loc = move(localisation, movement);
     return new_loc;
 }
 
@@ -312,4 +319,5 @@ int updatePhase(t_map map, t_move* moves, int size,t_localisation* loc){
         updateLocalisation(loc, moves[i]);
         if(getSoil(map, getX(*loc), getY(*loc))==REG)foundReg=1;
     }
+    return foundReg;
 }

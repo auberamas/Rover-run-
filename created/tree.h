@@ -37,7 +37,7 @@ t_node* minLeaf(t_node* node);
  */
 t_node** wayToLeafFromLeaf(t_node* leaf);
 
-t_move* aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map, int *sizeMoves);
+t_move* aPhase(t_localisation loca, int nbDrawnMove, int nbOfMoves, t_map map, int *sizeMoves);
 
 int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves, int showMap);
 
