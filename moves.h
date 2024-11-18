@@ -18,7 +18,8 @@ static char _moves[8][8] = {"F 10m", "F 20m", "F 30m", "B 10m", "T left", "T rig
 /**
  *  @brief Array of the sum of probabilities to draw each moves
  */
-static int probabilities[] = {22, 37, 44, 51, 72, 93, 100};
+static int init_probabilities[] = {22, 37, 44, 51, 72, 93, 100};//original probas
+static int probabilities[] = {22, 37, 44, 51, 72, 93, 100};//proba which will be modify
 
 /**
  * @brief Enum for the possible moves of the robot
@@ -73,6 +74,8 @@ t_move drawMove();
  */
  t_move* drawNbMoves(int);
 
+void resetProba();
+
  /**
   * @brief update the localisation with respect to the map and the current localisation
   * @param move the movement to be done
@@ -98,8 +101,9 @@ t_move drawMove();
   */
  t_localisation doInvalidLoc();
 
-void updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc);
+int updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc);
 
-void updatePhase(t_move* moves, int size,t_localisation* loc);
+int updatePhase(t_map map, t_move* moves, int size,t_localisation* loc);
+
 
 #endif //UNTITLED1_MOVES_H

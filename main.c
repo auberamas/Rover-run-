@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include "map.h"
-#include "moves.h"
 #include "tree.h"
 
 
 int main() {
 
-    t_map map = createMapFromFile("..\\maps\\example1.map");
+    t_map map = createMapFromFile("..\\maps\\training_2.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
     for (int i = 0; i < map.y_max; i++)
     {
@@ -30,18 +29,11 @@ int main() {
 
     int nbDrawnedmoves = 9;
     int nbOfMoves = 5;
-    t_orientation ori = NORTH;
-    t_localisation loca = loc_init(5,6,ori);//x,y
+    t_orientation ori = SOUTH;
+    t_localisation loca = loc_init(15,16,ori);//x,y
 
-    displayMapWithMARC(map,loca);
-
-    int sizeMoves = 0;
-    t_move* path = aPhase(loca,nbDrawnedmoves,nbOfMoves,map,&sizeMoves);
-    for(int i=0;i<sizeMoves;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]));
-
-    updateAnimPhase(map, path, sizeMoves, &loca);
-
-    printf("(%d,%d)", getX(loca), getY(loca));
+    int nbPhase = phaseUntilBase(map, loca, nbDrawnedmoves, nbOfMoves,1);
+    printf("Base found in %d phases",nbPhase);
 
     return 0;
 }

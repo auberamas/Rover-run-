@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <unistd.h>
+
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -139,6 +141,7 @@ t_node** wayToLeafFromLeaf(t_node* node){
 }
 
 t_move* aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map, int* sizeMoves){
+    resetProba();
     t_move* moves = drawNbMoves(nbDrawnedMoves);
     printf("Moves Drawned :\n\t");
     for(int i=0; i<nbDrawnedMoves; i++){
@@ -162,3 +165,24 @@ t_move* aPhase(t_localisation loca, int nbDrawnedMoves, int nbOfMoves, t_map map
     return lMoves;
 }
 
+int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int showMap){
+    int baseFound = 0, regMalus=0, nbMovesPhase,nbPhase = 0;
+    while (!baseFound && nbPhase<=100){
+        printf("--------------------------------\n\tPHASE NUMBER %d\n--------------------------------\n",nbPhase+1);
+        if(!regMalus)nbMovesPhase = nbMoves;
+        else nbMovesPhase = nbMoves-1;
+
+        int pathSize;
+        t_move* path = aPhase(loc, nbToDraw, nbMovesPhase, map,&pathSize);
+
+        if(showMap)regMalus = updateAnimPhase(map, path, pathSize, &loc);
+        else regMalus = updatePhase(map, path, pathSize, &loc);
+
+        if(getCost(map,loc) == 0)baseFound=1;
+        printf("Phase Ended at (%d,%d)\n", getX(loc), getY(loc));
+        nbPhase++;
+        if(showMap)sleep(2);
+    }
+    if(nbPhase ==100)return -1;
+    return nbPhase;
+}

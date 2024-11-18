@@ -191,6 +191,13 @@ t_move* drawNbMoves(int nb){
     return SetOfMove;
 }
 
+void resetProba(){
+    for (int i = 0; i < 7; i++) {
+        probabilities[i]=init_probabilities[i];
+    }
+    return;
+}
+
 t_localisation doInvalidLoc(){
     t_localisation new_loc;
     if(DEBUG)printf("crevasse on the way");
@@ -281,22 +288,26 @@ t_localisation updateLocalisationMap(t_move movement, t_localisation localisatio
 
 
 
-void updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc){
+int updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc){
+    int foundReg = 0;
     printf("Initial position: %s\n", getMoveAsString(moves[0]));
     displayMapWithMARC(map, *loc);
     printf("============================================================================================\n");
     for (int i = 1; i < size; ++i) {
         updateLocalisation(loc, moves[i]);
+        if(getSoil(map, getX(*loc), getY(*loc))==REG)foundReg=1;
         sleep(1);
         printf("Moves number %d: %s\n", i, getMoveAsString(moves[i]));
         displayMapWithMARC(map, *loc);
         printf("============================================================================================\n");
-
     }
+    return foundReg;
 }
 
-void updatePhase(t_move* moves, int size,t_localisation* loc){
+int updatePhase(t_map map, t_move* moves, int size,t_localisation* loc){
+    int foundReg = 0;
     for (int i = 1; i < size; i++) {
         updateLocalisation(loc, moves[i]);
+        if(getSoil(map, getX(*loc), getY(*loc))==REG)foundReg=1;
     }
 }
