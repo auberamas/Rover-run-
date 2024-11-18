@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 #include <unistd.h>
+#include <time.h>
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -237,6 +238,7 @@ int checkMove(t_move move,t_localisation loc, t_map map){
 }
 
 t_localisation updateLocalisationMap(t_move movement, t_localisation localisation, t_map map){
+    srand(time(0));
     int rand_turn = rand()%2;
     t_localisation new_loc;
     if(DEBUG)printf(" move %s ", getMoveAsString(movement));
