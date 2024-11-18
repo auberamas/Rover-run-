@@ -23,7 +23,7 @@ int factorialDivision(int a, int b);
 int factorialDivision(int a, int b){
     int mult = 1;
     if (b<a){
-        for(int i=a; i>=b; i--)
+        for(int i=a; i>b; i--)
             mult *= i;
         return mult;
     }else{
@@ -39,7 +39,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
 
     // Initialisation of the root
     t_node* root = createNode(getCost(map, locaMarc),nbDrawnMove,0,NULL,locaMarc, ROOT);
-    node_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
+    node_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove-1)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
     t_localisation newLoc;
     printf("Root initialized.  ");
 
