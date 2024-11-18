@@ -194,6 +194,7 @@ t_map createMapFromFile(char *filename)
 
     t_map map;
     int xdim, ydim;     // dimensions of the map
+    char buffer[100];   // buffer for reading the file line by line
 
     FILE *file = fopen(filename,"rt");
     if (file == NULL)
