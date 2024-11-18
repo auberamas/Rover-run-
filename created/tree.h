@@ -6,7 +6,7 @@
 #define UNTITLED1_TREE_H
 
 #include "node.h"
-#include "map.h"
+#include "../modified/map.h"
 
 #define DEBUG 0
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "map.h"
-#include "tree.h"
+#include "modified/map.h"
+#include "created/tree.h"
 
 
 int main() {

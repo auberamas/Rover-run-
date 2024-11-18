@@ -5,7 +5,7 @@
 #ifndef UNTITLED1_NODE_H
 #define UNTITLED1_NODE_H
 
-#include "moves.h"
+#include "../modified/moves.h"
 #include <stdlib.h>
 #include <assert.h>
 
