@@ -5,9 +5,9 @@
 #include "tree.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include <unistd.h>
-
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -35,6 +35,10 @@ int factorialDivision(int a, int b){
 
 
 t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc){ // need to add when crevasse and when outside the map
+    int timeFinal, timeStart;
+    if(COMPLEXITY){
+        timeStart = clock()/CLOCKS_PER_SEC;
+    }
     printf("\nStarting to create the tree.\n");
 
     // Initialisation of the root
@@ -101,11 +105,21 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
     }
     printf("Tree successfully generated.\n\n\n");
     free(q.nodes);
+    // complexity
+
+    if(COMPLEXITY){
+        timeFinal = clock()/CLOCKS_PER_SEC;
+        printf("\nTime complexity of the function that create the tree is : %d s\n", timeFinal-timeStart);
+    }
     return root;
 }
 
 
 t_node* minLeaf(t_node* node){
+    int timeFinal, timeStart;
+    if(COMPLEXITY){
+        timeStart = clock()/CLOCKS_PER_SEC;
+    }
     if(DEBUG)printf("Processing node with value: %d, nbSons: %d\n", node->value, node->nbSons);
 
     if(node->nbSons == 0){
@@ -124,16 +138,28 @@ t_node* minLeaf(t_node* node){
         }
     }
     free(minSons);
+    if(COMPLEXITY){
+        timeFinal = clock()/CLOCKS_PER_SEC;
+        printf("\nTime complexity of function to search the minimum leaf is : %d s\n", timeFinal-timeStart);
+    }
     return minNode;
 }
 
 
 t_node** wayToLeafFromLeaf(t_node* node){
+    int timeFinal, timeStart;
+    if(COMPLEXITY){
+        timeStart = clock()/CLOCKS_PER_SEC;
+    }
     t_node** tab = (t_node**) malloc((node->depth +1)*sizeof(t_node*));
     for(int i =node->depth; i>=0 ; i--){
         if(DEBUG)printf("%d, %d, %d\n",i,node->depth,node->value);
         tab[i]=node;
         if(node->depth!=0) {node = node->parent;}
+    }
+    if(COMPLEXITY){
+        timeFinal = clock()/CLOCKS_PER_SEC;
+        printf("\nTime complexity of the function that calculate the path from root to the minimum leaf : %d s\n", timeFinal-timeStart);
     }
     return tab;
 }
@@ -155,11 +181,13 @@ t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, 
     if(DEBUG)for(int i=0;i<bestLeaf->depth+1;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]->movement));
     if(DEBUG)printf("value : %d", path[bestLeaf->depth]->value);
 
-    //HERE SHOULD FREE THE TREE
-
     *sizeMoves = bestLeaf->depth+1;
     t_move* lMoves = malloc(*sizeMoves * sizeof(t_move));
     for(int i=0; i<*sizeMoves;i++)lMoves[i]=path[i]->movement;
+    //HERE SHOULD FREE THE TREE
+    freeTree(root);
+    //HERE SHOULD FREE PATH
+    free(path);
     return lMoves;
 }
 
@@ -180,7 +208,19 @@ int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int 
         printf("Phase Ended at (%d,%d)\n", getX(loc), getY(loc));
         nbPhase++;
         if(showMap)sleep(2);
+        free(path);
     }
     if(nbPhase ==100)return -1;
     return nbPhase;
+}
+
+void freeTree(t_node* node){
+    // If I'm a root I free myself and return
+    // recursively freeTree each sons
+    // free myself
+    for(int i = 0; i<node->nbSons; i++){
+        freeTree(node->sons[i]);
+    }
+    free(node->sons);
+    free(node);
 }

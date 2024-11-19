@@ -14,4 +14,6 @@ add_executable(untitled1 main.c
         created/node.h
         created/tree.c
         created/tree.h
+        menu.c
+        menu.h
 )

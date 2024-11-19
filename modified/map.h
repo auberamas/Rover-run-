@@ -20,6 +20,7 @@ typedef enum e_soil
     CREVASSE
 } t_soil;
 
+static int COMPLEXITY;
 /**
  * @brief Array of costs for the soils
  */

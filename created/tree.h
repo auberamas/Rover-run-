@@ -41,4 +41,6 @@ t_move* aPhase(t_localisation loca, int nbDrawnMove, int nbOfMoves, t_map map, i
 
 int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves, int showMap);
 
+void freeTree(t_node* root);
+
 #endif //UNTITLED1_TREE_H
