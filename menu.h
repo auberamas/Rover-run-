@@ -18,4 +18,5 @@ t_orientation chooseOrientation();
 void wantShowMap();
 void wantShowComplexity();
 
+
 #endif //UNTITLED1_MENU_H
