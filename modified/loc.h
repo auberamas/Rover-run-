@@ -16,6 +16,7 @@ typedef enum e_orientation
     WEST
 } t_orientation;
 
+static char *orientations[] = {"NORTH", "EAST", "SOUTH", "WEST"};
 /**
  * @brief Structure for the position of the robot
  */

@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
 #include <unistd.h>
 
 /* prototypes of local functions */
@@ -35,16 +34,16 @@ int factorialDivision(int a, int b){
 
 
 t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc){ // need to add when crevasse and when outside the map
-    int timeFinal, timeStart;
+    clock_t timeFinal, timeStart;
     if(COMPLEXITY){
-        timeStart = clock()/CLOCKS_PER_SEC;
+        timeStart = clock();
     }
-    printf("\nStarting to create the tree.\n");
+    if(DEBUG)printf("\nStarting to create the tree.\n");
 
     // Initialisation of the root
     t_node* root = createNode(getCost(map, locaMarc),nbDrawnMove,0,NULL,locaMarc, ROOT);
     node_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove-1)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
-    printf("Root initialized.  ");
+    if(DEBUG)printf("Root initialized.  ");
 
     for(int i = 0; i<nbDrawnMove; i++) {
         t_localisation newLoc = updateLocalisationMap(list_of_move[i], locaMarc, map);
@@ -103,22 +102,22 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
             }
         }
     }
-    printf("Tree successfully generated.\n\n\n");
+    if(DEBUG)printf("Tree successfully generated.\n\n\n");
     free(q.nodes);
     // complexity
 
     if(COMPLEXITY){
-        timeFinal = clock()/CLOCKS_PER_SEC;
-        printf("\nTime complexity of the function that create the tree is : %d s\n", timeFinal-timeStart);
+        timeFinal = clock();
+        timeCplxTree = ((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return root;
 }
 
 
 t_node* minLeaf(t_node* node){
-    int timeFinal, timeStart;
+    clock_t timeFinal, timeStart;
     if(COMPLEXITY){
-        timeStart = clock()/CLOCKS_PER_SEC;
+        timeStart = clock();
     }
     if(DEBUG)printf("Processing node with value: %d, nbSons: %d\n", node->value, node->nbSons);
 
@@ -139,17 +138,17 @@ t_node* minLeaf(t_node* node){
     }
     free(minSons);
     if(COMPLEXITY){
-        timeFinal = clock()/CLOCKS_PER_SEC;
-        printf("\nTime complexity of function to search the minimum leaf is : %d s\n", timeFinal-timeStart);
+        timeFinal = clock();
+        timeCplxMinLeaf = ((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return minNode;
 }
 
 
 t_node** wayToLeafFromLeaf(t_node* node){
-    int timeFinal, timeStart;
+    clock_t timeFinal, timeStart;
     if(COMPLEXITY){
-        timeStart = clock()/CLOCKS_PER_SEC;
+        timeStart = clock();
     }
     t_node** tab = (t_node**) malloc((node->depth +1)*sizeof(t_node*));
     for(int i =node->depth; i>=0 ; i--){
@@ -158,8 +157,9 @@ t_node** wayToLeafFromLeaf(t_node* node){
         if(node->depth!=0) {node = node->parent;}
     }
     if(COMPLEXITY){
-        timeFinal = clock()/CLOCKS_PER_SEC;
-        printf("\nTime complexity of the function that calculate the path from root to the minimum leaf : %d s\n", timeFinal-timeStart);
+        timeFinal = clock();
+        timeCplxPath = ((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
+        printf("Temps d'exécution (calculé) : %f secondes\n", timeCplxPath);
     }
     return tab;
 }
@@ -167,10 +167,11 @@ t_node** wayToLeafFromLeaf(t_node* node){
 t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, int* sizeMoves){
     resetProba();
     t_move* moves = drawNbMoves(nbDrawnMoves);
-    printf("Moves Drawned :\n\t");
+    printf("Drawn moves :\n");
     for(int i=0; i < nbDrawnMoves; i++){
-        printf("move %d : %s   ", i, getMoveAsString(moves[i]));
+        printf("move %d: %s, ", i, getMoveAsString(moves[i]));
     }
+    printf("\n");
     t_node* root = createTree(moves, nbDrawnMoves, nbOfMoves, map, loca);
 
     t_node* bestLeaf = minLeaf(root);
@@ -205,7 +206,7 @@ int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int 
         else regMalus = updatePhase(map, path, pathSize, &loc);
 
         if(getCost(map,loc) == 0)baseFound=1;
-        printf("Phase Ended at (%d,%d)\n", getX(loc), getY(loc));
+        printf("\nPhase Ended at (%d,%d)\n", getX(loc), getY(loc));
         nbPhase++;
         if(showMap)sleep(2);
         free(path);

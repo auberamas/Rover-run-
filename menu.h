@@ -5,16 +5,20 @@
 #ifndef UNTITLED1_MENU_H
 #define UNTITLED1_MENU_H
 
-#include "\modified\map.h"
-#include "\modified\loc.h"
+#include "modified\map.h"
+#include "modified\loc.h"
 
-static char* Maps[] = {"..\\maps\\exemple1.map", "..\\maps\\training_2.map", "..\\maps\\training_3.map", "..\\maps\\training_4.map", "..\\maps\\training_5.map"};
+static char* Maps[] = {"..\\maps\\expedition.map", "..\\maps\\intermediate.map", "..\\maps\\middle.map", "..\\maps\\tiny.map", "..\\maps\\wide.map"};
 int mission();
 void messageEnd(int);
 int userInput(int, int);
 t_map chooseMap();
 t_localisation chooseLocalisation();
 t_orientation chooseOrientation();
+void displayParameters(t_localisation, t_map);
+
+void menu();
+
 void wantShowMap();
 void wantShowComplexity();
 

@@ -76,6 +76,10 @@ t_move drawMove();
 
 void resetProba();
 
+/**
+ * @bref display a line according to the width of the map
+ */
+void displayLine(t_map);
  /**
   * @brief update the localisation with respect to the map and the current localisation
   * @param move the movement to be done

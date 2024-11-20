@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include "modified/map.h"
-#include "created/tree.h"
-
+#include "modified\map.h"
+#include "created\tree.h"
+#include "menu.h"
 
 int main() {
 
     // a supprimer *************************************
+    /*
     t_map map = createMapFromFile("..\\maps\\training_5.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
     for (int i = 0; i < map.y_max; i++)
@@ -27,8 +28,12 @@ int main() {
     }
     displayMap(map);
     printf("\n\n\n");
+    */
+
+    menu();
     // *************************************************************
 
+    /*
     int nbDrawnedmoves = 9;
     int nbOfMoves = 5;
 
@@ -37,6 +42,6 @@ int main() {
 
     int nbPhase = phaseUntilBase(map, loca, nbDrawnedmoves, nbOfMoves,1);
     printf("Base found in %d phases",nbPhase);
-
+    */
     return 0;
 }
