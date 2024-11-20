@@ -34,7 +34,7 @@ int factorialDivision(int a, int b){
 }
 
 
-t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc){ // need to add when crevasse and when outside the map
+t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc, double* timeCplx){ // need to add when crevasse and when outside the map
     clock_t timeFinal, timeStart;
     if(COMPLEXITY){
         timeStart = clock();
@@ -113,7 +113,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
 }
 
 
-t_node* minLeaf(t_node* node){
+t_node* minLeaf(t_node* node, double* timeCplx){
     clock_t timeFinal, timeStart;
     if(COMPLEXITY){
         timeStart = clock();
@@ -126,7 +126,7 @@ t_node* minLeaf(t_node* node){
     t_node** minSons = malloc(node->nbSons * sizeof(t_node*));
     for(int i=0; i<node->nbSons;i++){
         if(DEBUG){if(node->sons[i] == NULL) printf("mange tes morts");}
-        minSons[i]= minLeaf(node->sons[i]);
+        minSons[i]= minLeaf(node->sons[i], timeCplx);
     }
     // find the smallest node in the list of leaf
     t_node* minNode = minSons[0];
@@ -144,7 +144,7 @@ t_node* minLeaf(t_node* node){
 }
 
 
-t_node** wayToLeafFromLeaf(t_node* node){
+t_node** wayToLeafFromLeaf(t_node* node, double* timeCplx){
     clock_t timeFinal, timeStart;
     if(COMPLEXITY){
         timeStart = clock();
@@ -157,13 +157,12 @@ t_node** wayToLeafFromLeaf(t_node* node){
     }
     if(COMPLEXITY){
         timeFinal = clock();
-        printf("***************************** FINAL TIME : %f  **************************",timeFinal);
         timeCplx[2]= timeCplx[2]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return tab;
 }
 
-t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, int* sizeMoves){
+t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, int* sizeMoves, double *timeCplx){
     resetProba();
     t_move* moves = drawNbMoves(nbDrawnMoves);
     printf("Drawn moves :\n");
@@ -171,12 +170,12 @@ t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, 
         printf("move %d: %s, ", i, getMoveAsString(moves[i]));
     }
     printf("\n");
-    t_node* root = createTree(moves, nbDrawnMoves, nbOfMoves, map, loca);
+    t_node* root = createTree(moves, nbDrawnMoves, nbOfMoves, map, loca, timeCplx);
 
-    t_node* bestLeaf = minLeaf(root);
+    t_node* bestLeaf = minLeaf(root, timeCplx);
 
     if(DEBUG){int x= getX(bestLeaf->localisation), y =getY(bestLeaf->localisation);printf("\t soil: %d cost: %d coor: (%d,%d) %s\n", getSoil(map, x, y), map.costs[y][x],x,y,getMoveAsString(bestLeaf->movement));}
-    t_node** path = wayToLeafFromLeaf(bestLeaf);
+    t_node** path = wayToLeafFromLeaf(bestLeaf, timeCplx);
 
     if(DEBUG)for(int i=0;i<bestLeaf->depth+1;i++)printf(" move %d: %s\n",i, getMoveAsString(path[i]->movement));
     if(DEBUG)printf("value : %d", path[bestLeaf->depth]->value);
@@ -191,7 +190,7 @@ t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, 
     return lMoves;
 }
 
-int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int showMap){
+int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int showMap, double* timeCplx){
     int baseFound = 0, regMalus=0, nbMovesPhase,nbPhase = 0;
     while (!baseFound && nbPhase<=100){
         printf("--------------------------------\n\tPHASE NUMBER %d\n--------------------------------\n",nbPhase+1);
@@ -199,7 +198,7 @@ int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int 
         else nbMovesPhase = nbMoves-1;
 
         int pathSize;
-        t_move* path = aPhase(loc, nbToDraw, nbMovesPhase, map,&pathSize);
+        t_move* path = aPhase(loc, nbToDraw, nbMovesPhase, map,&pathSize, timeCplx);
 
         if(showMap)regMalus = updateAnimPhase(map, path, pathSize, &loc);
         else regMalus = updatePhase(map, path, pathSize, &loc);

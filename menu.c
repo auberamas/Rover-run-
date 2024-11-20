@@ -69,11 +69,14 @@ t_localisation chooseLocalisation(int x_max, int y_max){
     chosenLoc.ori = userInput(1,4) -1;
 
     // choice of position
-    printf("Choose your beginning localisation :\n");
-    printf("Choose your x coordinate : ");
-    chosenLoc.pos.x = userInput(0,x_max);
-    printf("Choose your y coordinate : ");
-    chosenLoc.pos.y = userInput(0,y_max);
+    do{
+        printf("Choose your beginning localisation :\n");
+        printf("Choose your x coordinate : ");
+        chosenLoc.pos.x = userInput(0,x_max);
+        printf("Choose your y coordinate : ");
+        chosenLoc.pos.y = userInput(0,y_max);
+    }while(!isValidLocalisation(chosenLoc.pos, x_max, y_max));
+
 
     return chosenLoc;
 }
@@ -86,7 +89,7 @@ void displayParameters(t_localisation loc, t_map map){
     printf("________________________________\n");
 }
 
-void manageComplexity(){
+void manageComplexity(double* timeCplx){
     printf("\n** Time complexity **\n");
     printf("\nTree : %f\nMin leaf :%f\nPath: %f\n\n", timeCplx[0], timeCplx[1], timeCplx[2]);
     for(int i= 0; i<4; i++){
@@ -94,9 +97,10 @@ void manageComplexity(){
     }
 }
 
-void menu(){
+_Noreturn void menu(){
     int nbDrawndmoves = 9;
     int nbOfMoves = 5;
+    double* timeCplx = (double*)malloc(sizeof(double)*4);
     do{
         // proposition de scenario
         printf("Which scenario do you want to chose? (Enter your number of choice)");
@@ -115,8 +119,9 @@ void menu(){
                 t_localisation loca = loc_init(3,3,ori);
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base ! \n");
-                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1);
+                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
+
                 break;
             }
 
@@ -124,12 +129,13 @@ void menu(){
                 printf("** Scenario 2 **\n\nIn this scenario Marc is not far away from the base, he needs few phases to get back to it.\nHere details about Marc's movement and the complexity time will be displayed.\n");
                 t_map map = createMapFromFile(Maps[1]);
                 t_orientation ori = NORTH;
-                t_localisation loca = loc_init(2,26, ori);
+                t_localisation loca = loc_init(1,1, ori);
                 COMPLEXITY = 0;
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base !\n");
-                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,0);
+                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,0, timeCplx);
                 messageEnd(nbPhase);
+                manageComplexity(timeCplx);
                 break;
             }
             case 3:{
@@ -140,9 +146,9 @@ void menu(){
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base\n");
                 COMPLEXITY = 1;
-                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1);
+                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
-                manageComplexity();
+                manageComplexity(timeCplx);
                 break;
 
             }
@@ -154,13 +160,14 @@ void menu(){
                 printf("Do you want to see the complexity of the main functions ?\nEnter 1 for YES and 0 for NO :");
                 COMPLEXITY = userInput(0,1);
                 printf("\nLet's start the way to go to the base\n");
-                int nbPhase = phaseUntilBase(map, loc, nbDrawndmoves, nbOfMoves,followMarc);
+                int nbPhase = phaseUntilBase(map, loc, nbDrawndmoves, nbOfMoves,followMarc, timeCplx);
                 messageEnd(nbPhase);
-                if(COMPLEXITY)manageComplexity();
+                if(COMPLEXITY)manageComplexity(timeCplx);
                 break;
             }
         }
     }while(mission);
+    free(timeCplx);
     return;
 }
 

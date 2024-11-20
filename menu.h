@@ -17,7 +17,7 @@ t_localisation chooseLocalisation();
 t_orientation chooseOrientation();
 void displayParameters(t_localisation, t_map);
 
-void menu();
+_Noreturn void menu();
 
 void wantShowMap();
 void wantShowComplexity();
