@@ -11,6 +11,7 @@
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
 
+
 /**
  * @brief Function to compute the factorial of a number over the factorial of an other number
  * @param a : numerator
@@ -104,11 +105,9 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
     }
     if(DEBUG)printf("Tree successfully generated.\n\n\n");
     free(q.nodes);
-    // complexity
-
     if(COMPLEXITY){
         timeFinal = clock();
-        timeCplxTree = ((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
+        timeCplx[0] = timeCplx[0] + ((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return root;
 }
@@ -139,7 +138,7 @@ t_node* minLeaf(t_node* node){
     free(minSons);
     if(COMPLEXITY){
         timeFinal = clock();
-        timeCplxMinLeaf = ((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
+        timeCplx[1] = timeCplx[1]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return minNode;
 }
@@ -158,8 +157,8 @@ t_node** wayToLeafFromLeaf(t_node* node){
     }
     if(COMPLEXITY){
         timeFinal = clock();
-        timeCplxPath = ((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
-        printf("Temps d'exécution (calculé) : %f secondes\n", timeCplxPath);
+        printf("***************************** FINAL TIME : %f  **************************",timeFinal);
+        timeCplx[2]= timeCplx[2]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return tab;
 }

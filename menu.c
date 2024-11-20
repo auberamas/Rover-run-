@@ -6,6 +6,7 @@
 #include <string.h>
 #include "menu.h"
 #include "created\tree.h"
+#include "modified\map.h"
 
 #define NBMAP 5
 
@@ -85,11 +86,12 @@ void displayParameters(t_localisation loc, t_map map){
     printf("________________________________\n");
 }
 
-void initialiseCplx(){
-    timeCplxTree = 0;
-    timeCplxMinLeaf = 0;
-    timeCplxPath = 0;
-    timeCplxExample = 0;
+void manageComplexity(){
+    printf("\n** Time complexity **\n");
+    printf("\nTree : %f\nMin leaf :%f\nPath: %f\n\n", timeCplx[0], timeCplx[1], timeCplx[2]);
+    for(int i= 0; i<4; i++){
+        timeCplx[i] = 0;
+    }
 }
 
 void menu(){
@@ -140,9 +142,7 @@ void menu(){
                 COMPLEXITY = 1;
                 int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1);
                 messageEnd(nbPhase);
-                printf("**** CPLX ****");
-                printf("\nTree : %f\nMin leaf :%f\nPath: %f\n", timeCplxTree, timeCplxExample, timeCplxPath);
-                initialiseCplx();
+                manageComplexity();
                 break;
 
             }
@@ -156,6 +156,7 @@ void menu(){
                 printf("\nLet's start the way to go to the base\n");
                 int nbPhase = phaseUntilBase(map, loc, nbDrawndmoves, nbOfMoves,followMarc);
                 messageEnd(nbPhase);
+                if(COMPLEXITY)manageComplexity();
                 break;
             }
         }

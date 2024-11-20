@@ -20,11 +20,8 @@ typedef enum e_soil
     CREVASSE
 } t_soil;
 
-static int COMPLEXITY = 1 ;
-static double timeCplxTree = 0;
-static double timeCplxMinLeaf = 0;
-static double timeCplxPath = 0;
-static double timeCplxExample = 0;
+static int COMPLEXITY;
+static double timeCplx[] = {0,0,0,0};
 /**
  * @brief Array of costs for the soils
  */
