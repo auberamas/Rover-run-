@@ -157,6 +157,7 @@ void menu(){
                 break;
 
             }
+            //user filled
             case 4:{
                 t_map map = chooseMap();
                 t_localisation loc = chooseLocalisation(map.y_max, map.x_max);
