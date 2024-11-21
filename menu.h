@@ -9,7 +9,7 @@
 #include "modified\loc.h"
 
 static char* Maps[] = {"..\\maps\\expedition.map", "..\\maps\\intermediate.map", "..\\maps\\middle.map", "..\\maps\\tiny.map", "..\\maps\\wide.map"};
-int mission();
+int isMission();
 void messageEnd(int);
 int userInput(int, int);
 t_map chooseMap();

@@ -2,8 +2,10 @@
 #include "modified\map.h"
 #include "created\tree.h"
 #include "menu.h"
+#include <time.h>
 
 int main() {
+    srand(time(NULL));
 
     // a supprimer *************************************
     /*

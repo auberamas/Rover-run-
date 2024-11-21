@@ -37,6 +37,7 @@ typedef struct s_map
     int     **costs;
     int     x_max;
     int     y_max;
+    char* name;
 } t_map;
 
 /**

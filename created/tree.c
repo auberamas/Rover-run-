@@ -157,6 +157,7 @@ t_node** wayToLeafFromLeaf(t_node* node, double* timeCplx){
     }
     if(COMPLEXITY){
         timeFinal = clock();
+        printf("************** %f **************** ", (double)(timeFinal-timeStart)/CLOCKS_PER_SEC);
         timeCplx[2]= timeCplx[2]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return tab;

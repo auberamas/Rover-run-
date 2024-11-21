@@ -33,8 +33,9 @@ void messageEnd(int res){
     }
 }
 
-int mission(){
+int isMission(){
     int mission;
+    printf("Hello ! A very intense solar storm has just hit... The MARC - MArs Rover Cartograph rover, which was carrying out its mission very well, has suffered a malfunction. Its programming, guidance and movement systems have been seriously affected");
     printf("Do you want to start a mission ? Enter 1 for YES or 0 for NO : \n");
     scanf("%d",&mission);
     return mission;
@@ -55,6 +56,7 @@ t_map chooseMap(){
         }
     }while(choice >NBMAP || choice <= 0);
     t_map map = createMapFromFile(Maps[choice]);
+    map.name = Maps[choice];
     return map;
 }
 
@@ -77,7 +79,6 @@ t_localisation chooseLocalisation(int x_max, int y_max){
         chosenLoc.pos.y = userInput(0,y_max);
     }while(!isValidLocalisation(chosenLoc.pos, x_max, y_max));
 
-
     return chosenLoc;
 }
 
@@ -85,7 +86,7 @@ void displayParameters(t_localisation loc, t_map map){
     printf("________________________________\n");
     printf("MARC beginning parameters :\n");
     printf("Position : (%d,%d) \nOrientation : %s\n", loc.pos.x, loc.pos.y, orientations[loc.ori]);
-    printf("Map name : map x\n");
+    printf("Map name : %s\n", map.name);
     printf("________________________________\n");
 }
 
@@ -93,7 +94,7 @@ void manageComplexity(double* timeCplx){
     printf("\n** Time complexity **\n");
     printf("\nTree : %f\nMin leaf :%f\nPath: %f\n\n", timeCplx[0], timeCplx[1], timeCplx[2]);
     for(int i= 0; i<4; i++){
-        timeCplx[i] = 0;
+        timeCplx[i] = 0.0;
     }
 }
 
@@ -101,6 +102,7 @@ _Noreturn void menu(){
     int nbDrawndmoves = 9;
     int nbOfMoves = 5;
     double* timeCplx = (double*)malloc(sizeof(double)*4);
+    int mission = isMission();
     do{
         // proposition de scenario
         printf("Which scenario do you want to chose? (Enter your number of choice)");
@@ -115,19 +117,20 @@ _Noreturn void menu(){
             case 1:{
                 printf("** Scenario 1 **\nMarc is far away from the base, he needs to achieve a huge way to go back to it. \nLet's see how he manages the path thanks to an animated map.\n");
                 t_map map = createMapFromFile(Maps[4]);
+                map.name = Maps[4];
                 t_orientation ori = EAST;
                 t_localisation loca = loc_init(3,3,ori);
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base ! \n");
                 int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
-
                 break;
             }
 
             case 2:{
                 printf("** Scenario 2 **\n\nIn this scenario Marc is not far away from the base, he needs few phases to get back to it.\nHere details about Marc's movement and the complexity time will be displayed.\n");
                 t_map map = createMapFromFile(Maps[1]);
+                map.name = Maps[1];
                 t_orientation ori = NORTH;
                 t_localisation loca = loc_init(1,1, ori);
                 COMPLEXITY = 0;
@@ -141,6 +144,7 @@ _Noreturn void menu(){
             case 3:{
                 printf("** Scenario 3 **\n\nIn this scenario Marc is not far away from the base, he needs few phases to get back to it.\nThe map will be displayed to follow it's progress.\n");
                 t_map map = createMapFromFile(Maps[0]);
+                map.name = Maps[0];
                 t_orientation ori = SOUTH;
                 t_localisation loca = loc_init(4,6, ori);
                 displayParameters(loca, map);
@@ -166,9 +170,9 @@ _Noreturn void menu(){
                 break;
             }
         }
+        isMission();
     }while(mission);
     free(timeCplx);
-    return;
 }
 
 
