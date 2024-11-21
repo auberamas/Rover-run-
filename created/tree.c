@@ -157,8 +157,8 @@ t_node** wayToLeafFromLeaf(t_node* node, double* timeCplx){
     }
     if(COMPLEXITY){
         timeFinal = clock();
-        printf("************** %f **************** ", (double)(timeFinal-timeStart)/CLOCKS_PER_SEC);
-        timeCplx[2]= timeCplx[2]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
+       // printf("************** %f **************** ", (double)(timeFinal-timeStart)/CLOCKS_PER_SEC);
+        timeCplx[2] = timeCplx[2]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     return tab;
 }
@@ -192,6 +192,10 @@ t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, 
 }
 
 int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int showMap, double* timeCplx){
+    clock_t timeFinal, timeStart;
+    if(COMPLEXITY){
+        timeStart = clock();
+    }
     int baseFound = 0, regMalus=0, nbMovesPhase,nbPhase = 0;
     while (!baseFound && nbPhase<=100){
         printf("--------------------------------\n\tPHASE NUMBER %d\n--------------------------------\n",nbPhase+1);
@@ -209,6 +213,11 @@ int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int 
         nbPhase++;
         if(showMap)sleep(2);
         free(path);
+    }
+    if(COMPLEXITY){
+        printf("in cplx phase until base");
+        timeFinal = clock();
+        timeCplx[3]= timeCplx[3]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }
     if(nbPhase ==100)return -1;
     return nbPhase;

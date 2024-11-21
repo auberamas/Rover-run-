@@ -33,11 +33,10 @@ void messageEnd(int res){
     }
 }
 
-int isMission(){
-    int mission;
-    printf("Hello ! A very intense solar storm has just hit... The MARC - MArs Rover Cartograph rover, which was carrying out its mission very well, has suffered a malfunction. Its programming, guidance and movement systems have been seriously affected");
-    printf("Do you want to start a mission ? Enter 1 for YES or 0 for NO : \n");
-    scanf("%d",&mission);
+int isMission(int beginning){
+    if(beginning)printf("Hello ! A very intense solar storm has just hit... The MARC - MArs Rover Cartograph rover, which was carrying out its mission very well, has suffered a malfunction. Its programming, guidance and movement systems have been seriously affected.\n Let's see if MARC can go back to the base !\n");
+    printf("\nDo you want to start a mission ? Enter 1 for YES or 0 for NO : \n");
+    int mission = userInput(0,1);
     return mission;
 }
 
@@ -90,21 +89,23 @@ void displayParameters(t_localisation loc, t_map map){
     printf("________________________________\n");
 }
 
-void manageComplexity(double* timeCplx){
-    printf("\n** Time complexity **\n");
-    printf("\nTree : %f\nMin leaf :%f\nPath: %f\n\n", timeCplx[0], timeCplx[1], timeCplx[2]);
+void manageComplexity(double* timeCplx, int display){
+    if(display)printf("\n** Time complexity **\n");
+    if(display)printf("\nTree : %f\nMin leaf :%f\nPath: %f\nPhases until the base: %f\n", timeCplx[0], timeCplx[1], timeCplx[2], timeCplx[3]);
     for(int i= 0; i<4; i++){
         timeCplx[i] = 0.0;
     }
 }
 
-_Noreturn void menu(){
-    int nbDrawndmoves = 9;
+void menu(){
+    int nbDrawnMoves = 9;
     int nbOfMoves = 5;
-    double* timeCplx = (double*)malloc(sizeof(double)*4);
-    int mission = isMission();
-    do{
-        // proposition de scenario
+    // to save complexity : tree, min leaf, path, phase until base
+    double* timeCplx = (double*)malloc(sizeof(double)*5);
+    manageComplexity(timeCplx,0);
+    int mission = isMission(1);
+    while(mission == 1){
+        // proposition of scenarios
         printf("Which scenario do you want to chose? (Enter your number of choice)");
         printf("\n 1. Pre-defined scenario 1 : great crossing ");
         printf("\n 2. Pre-defined scenario 2 : quick return to base ");
@@ -122,7 +123,7 @@ _Noreturn void menu(){
                 t_localisation loca = loc_init(3,3,ori);
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base ! \n");
-                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1, timeCplx);
+                int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
                 break;
             }
@@ -136,9 +137,9 @@ _Noreturn void menu(){
                 COMPLEXITY = 0;
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base !\n");
-                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,0, timeCplx);
+                int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,0, timeCplx);
                 messageEnd(nbPhase);
-                manageComplexity(timeCplx);
+                manageComplexity(timeCplx,1);
                 break;
             }
             case 3:{
@@ -150,9 +151,9 @@ _Noreturn void menu(){
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base\n");
                 COMPLEXITY = 1;
-                int nbPhase = phaseUntilBase(map, loca, nbDrawndmoves, nbOfMoves,1, timeCplx);
+                int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
-                manageComplexity(timeCplx);
+                manageComplexity(timeCplx,1);
                 break;
 
             }
@@ -164,14 +165,14 @@ _Noreturn void menu(){
                 printf("Do you want to see the complexity of the main functions ?\nEnter 1 for YES and 0 for NO :");
                 COMPLEXITY = userInput(0,1);
                 printf("\nLet's start the way to go to the base\n");
-                int nbPhase = phaseUntilBase(map, loc, nbDrawndmoves, nbOfMoves,followMarc, timeCplx);
+                int nbPhase = phaseUntilBase(map, loc, nbDrawnMoves, nbOfMoves,followMarc, timeCplx);
                 messageEnd(nbPhase);
-                if(COMPLEXITY)manageComplexity(timeCplx);
+                if(COMPLEXITY)manageComplexity(timeCplx, COMPLEXITY);
                 break;
             }
         }
-        isMission();
-    }while(mission);
+        mission = isMission(0);
+    }
     free(timeCplx);
 }
 
