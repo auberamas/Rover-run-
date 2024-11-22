@@ -11,7 +11,6 @@
 #define DEBUG 0
 
 
-
 /**
  * @brief generate the tree
  * @param list_of_move the list of drawed moves

@@ -61,7 +61,6 @@ t_map createMapFromFile(char *);
 void displayMap(t_map);
 
 /**
- *
  * @param map
  * @param x
  * @param y
@@ -69,6 +68,9 @@ void displayMap(t_map);
  */
 t_soil getSoil(t_map map, int x, int y);
 
+/**
+ * @return the cost value on the map
+ */
 int getCost(t_map map, t_localisation loc);
 
 void displayMapWithMARC(t_map, t_localisation);

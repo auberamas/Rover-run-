@@ -92,7 +92,7 @@ void displayParameters(t_localisation loc, t_map map){
 
 void manageComplexity(double* timeCplx, int display){
     if(display)printf("\n** Time complexity **\n");
-    if(display)printf("\nTree : %f\nMin leaf :%f\nPath: %f\nPhases until the base: %f\n", timeCplx[0], timeCplx[1], timeCplx[2], timeCplx[3]);
+    if(display)printf("\nTree : %f seconds\nMin leaf :%f seconds\nPath: %f microseconds\nPhases until the base: %f seconds\n", timeCplx[0], timeCplx[1], timeCplx[2], timeCplx[3]);
     for(int i= 0; i<4; i++){
         timeCplx[i] = 0.0;
     }
@@ -123,6 +123,7 @@ void menu(){
                 t_orientation ori = EAST;
                 t_localisation loca = loc_init(3,3,ori);
                 displayParameters(loca, map);
+                COMPLEXITY = 0;
                 printf("\nLet's start the way to go to the base ! \n");
                 int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
@@ -135,7 +136,7 @@ void menu(){
                 map.name = Maps[1];
                 t_orientation ori = NORTH;
                 t_localisation loca = loc_init(1,1, ori);
-                COMPLEXITY = 0;
+                COMPLEXITY = 1;
                 displayParameters(loca, map);
                 printf("\nLet's start the way to go to the base !\n");
                 int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,0, timeCplx);
@@ -175,6 +176,7 @@ void menu(){
         }
         mission = isMission(0);
     }
+    printf("\nGood bye ;) !");
     free(timeCplx);
 }
 

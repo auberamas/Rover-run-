@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
+#include <windows.h>
+#include <windows.h>
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -145,9 +147,12 @@ t_node* minLeaf(t_node* node, double* timeCplx){
 
 
 t_node** wayToLeafFromLeaf(t_node* node, double* timeCplx){
-    clock_t timeFinal, timeStart;
+    LARGE_INTEGER start, end, frequency;
     if(COMPLEXITY){
-        timeStart = clock();
+        // To have a counter with a high resolution
+        QueryPerformanceFrequency(&frequency);
+        // start of the counter
+        QueryPerformanceCounter(&start);
     }
     t_node** tab = (t_node**) malloc((node->depth +1)*sizeof(t_node*));
     for(int i =node->depth; i>=0 ; i--){
@@ -156,9 +161,9 @@ t_node** wayToLeafFromLeaf(t_node* node, double* timeCplx){
         if(node->depth!=0) {node = node->parent;}
     }
     if(COMPLEXITY){
-        timeFinal = clock();
-       // printf("************** %f **************** ", (double)(timeFinal-timeStart)/CLOCKS_PER_SEC);
-        timeCplx[2] = timeCplx[2]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
+        QueryPerformanceCounter(&end);
+        // Here the computation is in microseconds
+        timeCplx[2] = timeCplx[2] + (double)(end.QuadPart - start.QuadPart) * 1e6 / frequency.QuadPart;
     }
     return tab;
 }

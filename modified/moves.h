@@ -74,6 +74,9 @@ t_move drawMove();
  */
  t_move* drawNbMoves(int);
 
+ /*
+  * reset the table of probabilities with the table init_probabilities[]
+  */
 void resetProba();
 
 /**
@@ -88,7 +91,6 @@ void displayLine(t_map);
   * @return the updated localisation
   */
  t_localisation updateLocalisationMap(t_move move, t_localisation localisation, t_map map);
-
 
 /**
  * @brief ckeck throughout the move if we pass by a crevasse
@@ -105,8 +107,24 @@ void displayLine(t_map);
   */
  t_localisation doInvalidLoc();
 
+ /**
+  * @brief update Marc localisation and display him on the map at each move
+  * @param map
+  * @param moves the set of drawn moves
+  * @param size the number of move in the path
+  * @param loc current localisation of MARC
+  * @return 1 if a Reg is found, 0 else to decrease by 1 the number of move of the following tree
+  */
 int updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc);
 
+/**
+ * @brief update the phase without display the map
+ * @param map
+ * @param moves the set of drawn moves
+ * @param size the number of move in the path
+ * @param loc current localisation of MARC
+ * @return 1 if a Reg is found, 0 else to decrease by 1 the number of move of the following tree
+ */
 int updatePhase(t_map map, t_move* moves, int size,t_localisation* loc);
 
 
