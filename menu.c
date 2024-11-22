@@ -36,7 +36,7 @@ void messageEnd(int res){
 int isMission(int beginning){
     // brief of the mission from the given
     if(beginning)printf("Hello ! A very intense solar storm has just hit... The MARC - MArs Rover Cartograph rover, which was carrying out its mission very well, has suffered a malfunction. Its programming, guidance and movement systems have been seriously affected.\n Let's see if MARC can go back to the base !\n");
-    printf("\nDo you want to start a mission ? Enter 1 for YES or 0 for NO : \n");
+    printf("\nDo you want to start a mission ? (1 for YES or 0 for NO) \n");
     int mission = userInput(0,1);
     return mission;
 }
@@ -77,6 +77,9 @@ t_localisation chooseLocalisation(int x_max, int y_max){
         chosenLoc.pos.x = userInput(0,x_max);
         printf("Choose your y coordinate : ");
         chosenLoc.pos.y = userInput(0,y_max);
+        if(!isValidLocalisation(chosenLoc.pos, x_max, y_max)){
+            printf("\nYour localisation is not valid !\n");
+        }
     }while(!isValidLocalisation(chosenLoc.pos, x_max, y_max));
 
     return chosenLoc;
@@ -99,6 +102,7 @@ void manageComplexity(double* timeCplx, int display){
 }
 
 void menu(){
+    int exit = 0;
     int nbDrawnMoves = 9;
     int nbOfMoves = 5;
     // to save complexity : tree, min leaf, path, phase until base
@@ -112,7 +116,8 @@ void menu(){
         printf("\n 2. Pre-defined scenario 2 : quick return to base ");
         printf("\n 3. Pre-defined scenario 3 : few miles away" );
         printf("\n 4. User-defined scenario : let's define your scenario");
-        int scenario = userInput(1,4);
+        printf("\n 5. Exit ");
+        int scenario = userInput(1,5);
 
         switch(scenario){
             // hard filled
@@ -173,8 +178,12 @@ void menu(){
                 if(COMPLEXITY)manageComplexity(timeCplx, COMPLEXITY);
                 break;
             }
+            case 5:{
+                exit = 1;
+                mission = 0;
+            }
         }
-        mission = isMission(0);
+        if(!exit)mission = isMission(0);
     }
     printf("\nGood bye ;) !");
     free(timeCplx);

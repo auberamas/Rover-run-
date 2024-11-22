@@ -220,7 +220,6 @@ int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int 
         free(path);
     }
     if(COMPLEXITY){
-        printf("in cplx phase until base");
         timeFinal = clock();
         timeCplx[3]= timeCplx[3]+((double)(timeFinal-timeStart))/CLOCKS_PER_SEC;
     }

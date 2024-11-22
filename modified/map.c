@@ -300,10 +300,7 @@ t_soil getSoil(t_map map, int x, int y){
 int getCost(t_map map, t_localisation loc){
     return map.costs[getY(loc)][getX(loc)];
 }
-
 void displayMapWithMARC(t_map map, t_localisation loc){
-    // Set locale to ensure Unicode is supported
-    setlocale(LC_ALL, "");
     /** the rules for display are :
      * display all soils with 3x3 characters
      * characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' ' for crevasse
@@ -347,22 +344,22 @@ void displayMapWithMARC(t_map map, t_localisation loc){
                                     doSwitch=0;
                                     switch (map.soils[i][j]) {
                                         case BASE_STATION:
-                                            strcpy(c, " 🤖 ");
+                                            strcpy(c, " M ");
                                             break;
                                         case PLAIN:
-                                            strcpy(c, "-🤖-");
+                                            strcpy(c, "-M-");
                                             break;
                                         case ERG:
-                                            strcpy(c, "~🤖~");
+                                            strcpy(c, "~M~");
                                             break;
                                         case REG:
-                                            strcpy(c, "^🤖^");
+                                            strcpy(c, "^M^");
                                             break;
                                         case CREVASSE:
-                                            sprintf(c, "%c🤖%c", 219, 219);
+                                            sprintf(c, "%cM%c", 219, 219);
                                             break;
                                         default:
-                                            strcpy(c, "?🤖?");
+                                            strcpy(c, "?M?");
                                             break;
                                     }
                                     break;
@@ -380,22 +377,22 @@ void displayMapWithMARC(t_map map, t_localisation loc){
                                     doSwitch=0;
                                     switch (map.soils[i][j]) {
                                         case BASE_STATION:
-                                            strcpy(c, " 🤖E");
+                                            strcpy(c, " ME");
                                             break;
                                         case PLAIN:
-                                            strcpy(c, "-🤖E");
+                                            strcpy(c, "-ME");
                                             break;
                                         case ERG:
-                                            strcpy(c, "~🤖E");
+                                            strcpy(c, "~ME");
                                             break;
                                         case REG:
-                                            strcpy(c, "^🤖E");
+                                            strcpy(c, "^ME");
                                             break;
                                         case CREVASSE:
-                                            sprintf(c, "%c🤖E", 219);
+                                            sprintf(c, "%cME", 219);
                                             break;
                                         default:
-                                            strcpy(c, "?🤖E");
+                                            strcpy(c, "?ME");
                                             break;
                                     }
                                     break;
@@ -413,22 +410,22 @@ void displayMapWithMARC(t_map map, t_localisation loc){
                                     doSwitch=0;
                                     switch (map.soils[i][j]) {
                                         case BASE_STATION:
-                                            strcpy(c, " 🤖 ");
+                                            strcpy(c, " M ");
                                             break;
                                         case PLAIN:
-                                            strcpy(c, "-🤖-");
+                                            strcpy(c, "-M-");
                                             break;
                                         case ERG:
-                                            strcpy(c, "~🤖~");
+                                            strcpy(c, "~M~");
                                             break;
                                         case REG:
-                                            strcpy(c, "^🤖^");
+                                            strcpy(c, "^M^");
                                             break;
                                         case CREVASSE:
-                                            sprintf(c, "%c🤖%c", 219, 219);
+                                            sprintf(c, "%cM%c", 219, 219);
                                             break;
                                         default:
-                                            strcpy(c, "?🤖?");
+                                            strcpy(c, "?M?");
                                             break;
                                     }
                                     break;
@@ -466,22 +463,22 @@ void displayMapWithMARC(t_map map, t_localisation loc){
                                     doSwitch=0;
                                     switch (map.soils[i][j]) {
                                         case BASE_STATION:
-                                            strcpy(c, "W🤖 ");
+                                            strcpy(c, "WM ");
                                             break;
                                         case PLAIN:
-                                            strcpy(c, "W🤖-");
+                                            strcpy(c, "WM-");
                                             break;
                                         case ERG:
-                                            strcpy(c, "W🤖~");
+                                            strcpy(c, "WM~");
                                             break;
                                         case REG:
-                                            strcpy(c, "W🤖^");
+                                            strcpy(c, "WM^");
                                             break;
                                         case CREVASSE:
-                                            sprintf(c, "W🤖%c", 219);
+                                            sprintf(c, "WM%c", 219);
                                             break;
                                         default:
-                                            strcpy(c, "W🤖?");
+                                            strcpy(c, "WM?");
                                             break;
                                     }
                                     break;
@@ -513,7 +510,7 @@ void displayMapWithMARC(t_map map, t_localisation loc){
                             strcpy(c, "^^^");
                             break;
                         case CREVASSE:
-                            sprintf(c, "███");
+                            sprintf(c, "%c%c%c", 219, 219, 219);
                             break;
                         default:
                             strcpy(c, "???");
@@ -527,4 +524,3 @@ void displayMapWithMARC(t_map map, t_localisation loc){
 
     }
 }
-
