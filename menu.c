@@ -34,6 +34,7 @@ void messageEnd(int res){
 }
 
 int isMission(int beginning){
+    // brief of the mission from the given
     if(beginning)printf("Hello ! A very intense solar storm has just hit... The MARC - MArs Rover Cartograph rover, which was carrying out its mission very well, has suffered a malfunction. Its programming, guidance and movement systems have been seriously affected.\n Let's see if MARC can go back to the base !\n");
     printf("\nDo you want to start a mission ? Enter 1 for YES or 0 for NO : \n");
     int mission = userInput(0,1);
