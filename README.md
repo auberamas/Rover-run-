@@ -50,7 +50,7 @@ Our algorithm is mainly composed of a tree function allowing Marc to think about
     - Identifies the optimal sequence of moves by finding the leaf with the minimal cost and then finding back its combination of moves from the root.
 
 3. **Complexity Metrics**:
-    - Evaluating the time of execution of the main function in second or microseconds. We give also the time of a full sequence until Marc reach the base.
+    - Evaluating the time of execution of the main function in second or microseconds. We give also the time of a full sequence until MARC reach the base.
 
 
 ### Build Instructions
