@@ -1,7 +1,10 @@
 # Rover Run!
+[Our project -> Rover-run-](https://github.com/auberamas/Rover-run-)<br>
+[Given from Nicolas Flasque ->MARC](https://github.com/nicolas-flasque-efrei/MARC)
 ## Overview
-As a part of the ESTF (Efrei Space Task Force) the team MLKJMLKJ answered to the help request of the MARC rover through Sir Nicolas Flasque, the director of the task force.
-Due to the recent sun storm on mars, Marc is damaged. Our algorithm is going to help it to find back the base so that it can send us his mars samples.
+As a part of the ESTF (Efrei Space Task Force), the team WALL-E (Waypoint Assistance with Locational Learning-Efrei) answered to the help request of the MARC rover through Sir Nicolas Flasque, the director of the task force.
+
+Due to the recent sun storm on Mars, Marc is damaged. Our algorithm is going to help it find back the base so that it can send us his Mars samples.
 Our algorithm is mainly composed of a tree function allowing Marc to think about all the possible moves it can do.
 ## Features
 
@@ -70,6 +73,8 @@ I advise you to lunch it in the Windows terminal, the CMakeLists.txt is included
 
 ## Creators
 Sophie Jaffal, Aube Ramassamy, Pierre Mouriès
+[Our project -> Rover-run-](https://github.com/auberamas/Rover-run-)<br>
+[Given from Nicolas Flasque ->MARC](https://github.com/nicolas-flasque-efrei/MARC)
 ## License
 This project is part of the **Efrei Paris** coursework for **TI301 - Algorithms and Data Structures 2** and is for educational purposes.
 
@@ -77,4 +82,4 @@ This project is part of the **Efrei Paris** coursework for **TI301 - Algorithms 
 
 <br>
 
-***The global structure of this document and some sentences were written by Chat gpt.*** 
+***The global structure of this document was written by ChatGPT.*** 
