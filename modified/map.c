@@ -238,6 +238,22 @@ t_map createMapFromFile(char *filename)
     return map;
 }
 
+void freeMap(t_map map){
+    // freeing soils
+    for (int i = 0; i < map.y_max; i++) {
+        free(map.soils[i]);
+    }
+    free(map.soils);
+
+    // freeing costs
+    for (int i = 0; i < map.y_max; i++) {
+        free(map.costs[i]);
+    }
+    free(map.costs);
+    free(&map);
+}
+
+
 t_map createTrainingMap()
 {
     return createMapFromFile("..\\maps\\training.map");

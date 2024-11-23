@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include "modified\map.h"
 #include "created\tree.h"
 #include "menu.h"
 #include <time.h>

@@ -48,6 +48,12 @@ typedef struct s_map
 t_map createMapFromFile(char *);
 
 /**
+ * @brief free the memory allocated for a map
+ * @param map
+ */
+void freeMap(t_map map);
+
+/**
  * @brief Function to create a standard training map (11x11 with only plains and base station in the middle)
  * @param none
  * @return a standard map

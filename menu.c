@@ -8,6 +8,8 @@
 #include "created\tree.h"
 #include "modified\map.h"
 
+#include <unistd.h>
+
 #define NBMAP 5
 
 
@@ -57,7 +59,14 @@ t_map chooseMap(){
     }while(choice >NBMAP || choice <= 0);
     t_map map = createMapFromFile(Maps[choice]);
     map.name = Maps[choice];
-    return map;
+
+    displayMap(map);
+    printf("\nIs this map (%s) good for you? (1 for YES or 0 for NO) \n",allMaps[choice]);
+    if(userInput(0,1)) return map;
+    else{
+        freeMap(map);
+        return chooseMap();
+    }
 }
 
 t_localisation chooseLocalisation(int x_max, int y_max){
@@ -74,9 +83,9 @@ t_localisation chooseLocalisation(int x_max, int y_max){
     do{
         printf("Choose your beginning localisation :\n");
         printf("Choose your x coordinate : ");
-        chosenLoc.pos.x = userInput(0,x_max);
+        chosenLoc.pos.x = userInput(0,x_max-1);
         printf("Choose your y coordinate : ");
-        chosenLoc.pos.y = userInput(0,y_max);
+        chosenLoc.pos.y = userInput(0,y_max-1);
         if(!isValidLocalisation(chosenLoc.pos, x_max, y_max)){
             printf("\nYour localisation is not valid !\n");
         }
@@ -111,7 +120,7 @@ void menu(){
     int mission = isMission(1);
     while(mission == 1){
         // proposition of scenarios
-        printf("Which scenario do you want to chose? (Enter your number of choice)");
+        printf("Which scenario do you want to chose? (Enter the number of your choice)");
         printf("\n 1. Pre-defined scenario 1 : great crossing ");
         printf("\n 2. Pre-defined scenario 2 : quick return to base ");
         printf("\n 3. Pre-defined scenario 3 : few miles away" );
@@ -132,6 +141,7 @@ void menu(){
                 printf("\nLet's start the way to go to the base ! \n");
                 int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
+                freeMap(map);
                 break;
             }
 
@@ -147,6 +157,7 @@ void menu(){
                 int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,0, timeCplx);
                 messageEnd(nbPhase);
                 manageComplexity(timeCplx,1);
+                freeMap(map);
                 break;
             }
             case 3:{
@@ -161,6 +172,7 @@ void menu(){
                 int nbPhase = phaseUntilBase(map, loca, nbDrawnMoves, nbOfMoves,1, timeCplx);
                 messageEnd(nbPhase);
                 manageComplexity(timeCplx,1);
+                freeMap(map);
                 break;
 
             }
@@ -176,17 +188,20 @@ void menu(){
                 int nbPhase = phaseUntilBase(map, loc, nbDrawnMoves, nbOfMoves,followMarc, timeCplx);
                 messageEnd(nbPhase);
                 if(COMPLEXITY)manageComplexity(timeCplx, COMPLEXITY);
+                freeMap(map);
                 break;
             }
             case 5:{
                 exit = 1;
                 mission = 0;
+                break;
             }
         }
         if(!exit)mission = isMission(0);
     }
     printf("\nGood bye ;) !");
     free(timeCplx);
+    sleep(1);
 }
 
 
