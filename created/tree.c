@@ -204,7 +204,7 @@ int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int 
     }
     int baseFound = 0, regMalus=0, nbMovesPhase,nbPhase = 0;
     while (!baseFound && nbPhase<=100){
-        printf("--------------------------------\n\tPHASE NUMBER %d\n--------------------------------\n",nbPhase+1);
+        printf("\n--------------------------------\n\tPHASE NUMBER %d\n--------------------------------\n",nbPhase+1);
         if(!regMalus)nbMovesPhase = nbMoves;
         else nbMovesPhase = nbMoves-1;
 
