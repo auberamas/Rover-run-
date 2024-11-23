@@ -20,7 +20,8 @@ Our algorithm is mainly composed of a tree function allowing Marc to think about
 
 4. **Complexity Analysis**:
     - Tracks and reports computational time complexity for tree construction, pathfinding, and overall mission execution.
-4. **Complexity Analysis**:
+      
+5. **Animated Map**:
     - Map satellite imagery, we've sent a satellite on Mars so that you can see each move done by Marc.
 
 ## Project Structure
@@ -49,7 +50,7 @@ Our algorithm is mainly composed of a tree function allowing Marc to think about
     - Identifies the optimal sequence of moves by finding the leaf with the minimal cost and then finding back its combination of moves from the root.
 
 3. **Complexity Metrics**:
-    - Evaluating the time of execution of the main function in second or microseconds. We give also the time of a full sequence until March reach the base.
+    - Evaluating the time of execution of the main function in second or microseconds. We give also the time of a full sequence until Marc reach the base.
 
 
 ### Build Instructions
