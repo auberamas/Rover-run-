@@ -15,7 +15,7 @@ Our algorithm is mainly composed of a tree function allowing Marc to think about
     - In each phase selects the best movement's combinations using cost minimization techniques.
 
 3. **Terrain Handling**:
-    - Incorporates various Martian terrains, including plains, ergs, slopes, and crevasses.
+    - Incorporates various Martian terrains, including plains, loose and dusty soil, uneven ground and crevasses.
     - Adjusts movement and cost calculations based on terrain effects.
 
 4. **Complexity Analysis**:
