@@ -1,7 +1,7 @@
 //
 // Created by flasque on 19/10/2024.
 //
-
+// As a matter of fact I think that I didn't modify this file, but I copied it for the queue of nodes
 #include <assert.h>
 #include <stdlib.h>
 #include "queue.h"

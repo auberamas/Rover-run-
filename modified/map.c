@@ -320,6 +320,8 @@ void displayMapWithMARC(t_map map, t_localisation loc){
     /** the rules for display are :
      * display all soils with 3x3 characters
      * characters are : B for base station, '-' for plain, '~' for erg, '^' for reg, ' ' for crevasse
+     * 'M' for Marc, 'N' for North, 'E' for East, 'S' for South, 'W' for Weast
+     * I took some already done function by Sir Flasque and mixed them
      */
     for (int i = 0; i < map.y_max; i++)
     {

@@ -28,7 +28,7 @@ int userInput(int first, int last ){
 
 void messageEnd(int res){
     if (res != -1){
-        printf("Base found in %d phases.\n\n", res);
+        printf("\nBase found in %d phases.\n\n", res);
     }
     else{
         printf("I'm lost [>.<] ! \n\n");
@@ -37,7 +37,7 @@ void messageEnd(int res){
 
 int isMission(int beginning){
     // brief of the mission from the given
-    if(beginning)printf("Hello ! A very intense solar storm has just hit... The MARC - MArs Rover Cartograph rover, which was carrying out its mission very well, has suffered a malfunction. Its programming, guidance and movement systems have been seriously affected.\n Let's see if MARC can go back to the base !\n");
+    if(beginning)printf("\tHello ! A very intense solar storm has just hit... The MARC - MArs Rover Cartograph rover, which was carrying out its mission very well, has suffered a malfunction. Its programming, guidance and movement systems have been seriously affected.\n Let's see if MARC can go back to the base !\n");
     printf("\nDo you want to start a mission ? (1 for YES or 0 for NO) \n");
     int mission = userInput(0,1);
     return mission;
@@ -45,7 +45,7 @@ int isMission(int beginning){
 
 t_map chooseMap(){
     char* allMaps[]= {"expedition", "intermediate", "middle", "tiny","wide"};
-    printf("Choose a map among the following ones :");
+    printf("Choose a map among the following ones :\n");
     for(int i=0; i<NBMAP; i++){
         printf("%d - %s \n",i,allMaps[i]);
     }
@@ -53,10 +53,10 @@ t_map chooseMap(){
     do{
         printf("To choose a map enter its number :");
         scanf("%d",&choice);
-        if (choice >NBMAP || choice <= 0){
+        if (choice >NBMAP || choice < 0){
             printf("Your choice is not in the list!\n");
         }
-    }while(choice >NBMAP || choice <= 0);
+    }while(choice >NBMAP || choice < 0);
     t_map map = createMapFromFile(Maps[choice]);
     map.name = Maps[choice];
 
@@ -81,7 +81,7 @@ t_localisation chooseLocalisation(int x_max, int y_max){
 
     // choice of position
     do{
-        printf("Choose your beginning localisation :\n");
+        printf("Choose your beginning localisation (top left is 0,0):\n");
         printf("Choose your x coordinate : ");
         chosenLoc.pos.x = userInput(0,x_max-1);
         printf("Choose your y coordinate : ");
@@ -179,8 +179,8 @@ void menu(){
             //user filled
             case 4:{
                 t_map map = chooseMap();
-                t_localisation loc = chooseLocalisation(map.y_max, map.x_max);
-                printf("Do you want to see MARC moving or not ?\n Enter 1 for YES and 0 for NO :");
+                t_localisation loc = chooseLocalisation(map.x_max, map.y_max);
+                printf("\nDo you want to see MARC moving or not ?\n Enter 1 for YES and 0 for NO :");
                 int followMarc = userInput(0,1);
                 printf("Do you want to see the complexity of the main functions ?\nEnter 1 for YES and 0 for NO :");
                 COMPLEXITY = userInput(0,1);

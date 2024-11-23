@@ -13,7 +13,6 @@
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
 
-
 /**
  * @brief Function to compute the factorial of a number over the factorial of an other number
  * @param a : numerator
@@ -21,7 +20,6 @@
  * @return the new orientation of the robot
  */
 int factorialDivision(int a, int b);
-
 int factorialDivision(int a, int b){
     int mult = 1;
     if (b<a){
@@ -35,6 +33,7 @@ int factorialDivision(int a, int b){
 
 }
 
+// Global functions
 
 t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map, t_localisation locaMarc, double* timeCplx){ // need to add when crevasse and when outside the map
     clock_t timeFinal, timeStart;
@@ -47,7 +46,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
     t_node* root = createNode(getCost(map, locaMarc),nbDrawnMove,0,NULL,locaMarc, ROOT);
     node_queue q = createNodeQueue(factorialDivision(nbDrawnMove,nbDrawnMove-nbMove-1)); // the maximum number of nodes in the queue will be the number of parents of leaves since we will process depth by depth and when a floor is putted in it means that a floor is dequeue
     if(DEBUG)printf("Root initialized.  ");
-
+    // Making the sons of the root
     for(int i = 0; i<nbDrawnMove; i++) {
         t_localisation newLoc = updateLocalisationMap(list_of_move[i], locaMarc, map);
         if(DEBUG)printf(" x,y : %d,%d", getX(newLoc), getY(newLoc));
@@ -67,7 +66,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
     }
     if(DEBUG)printf("\nSons of root added.\n");
 
-    // Making all sons
+    // Making all other sons until all possible leaves are created
     int layer = 0;//for layers display
     t_node* node;
     int idx;
@@ -79,6 +78,7 @@ t_node* createTree(t_move* list_of_move, int nbDrawnMove, int nbMove, t_map map,
 
         idx = 0;
         int foundMyself = 0;
+        // finding its brothers (sons of its parent but first time that I see myself I don't create it)
         for(int i = 0; i< node->parent->nbSons; i++) {
             if(!foundMyself && node->parent->sons[i]->movement == node->movement) {
                 if(DEBUG)printf("\tSON %d found we I am really. ", i);
@@ -122,15 +122,17 @@ t_node* minLeaf(t_node* node, double* timeCplx){
     }
     if(DEBUG)printf("Processing node with value: %d, nbSons: %d\n", node->value, node->nbSons);
 
+    // If I have no sons I'm the smallest leaf of my subtree
     if(node->nbSons == 0){
         return node;
     }
+    // finding the minLeaf of all its sons
     t_node** minSons = malloc(node->nbSons * sizeof(t_node*));
     for(int i=0; i<node->nbSons;i++){
         if(DEBUG){if(node->sons[i] == NULL) printf("mange tes morts");}
         minSons[i]= minLeaf(node->sons[i], timeCplx);
     }
-    // find the smallest node in the list of leaf
+    // find the smallest node among the smallest leaf of its sons
     t_node* minNode = minSons[0];
     for(int i=1; i<node->nbSons; i++){
         if(minSons[i]->value < minNode->value || (minSons[i]->value == minNode->value && minSons[i]->depth < minNode->depth)){
@@ -189,9 +191,8 @@ t_move* aPhase(t_localisation loca, int nbDrawnMoves, int nbOfMoves, t_map map, 
     *sizeMoves = bestLeaf->depth+1;
     t_move* lMoves = malloc(*sizeMoves * sizeof(t_move));
     for(int i=0; i<*sizeMoves;i++)lMoves[i]=path[i]->movement;
-    //HERE SHOULD FREE THE TREE
+
     freeTree(root);
-    //HERE SHOULD FREE PATH
     free(path);
     return lMoves;
 }
@@ -214,7 +215,7 @@ int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves,int 
         else regMalus = updatePhase(map, path, pathSize, &loc);
 
         if(getCost(map,loc) == 0)baseFound=1;
-        printf("\nPhase Ended at (%d,%d)\n", getX(loc), getY(loc));
+        printf("Phase Ended at (%d,%d)", getX(loc), getY(loc));
         nbPhase++;
         if(showMap)sleep(2);
         free(path);

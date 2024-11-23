@@ -82,14 +82,14 @@ t_position UP(t_position);
 t_position DOWN(t_position);
 
 /**
- *
+ * @brief getter for the x pos of a localisation
  * @param pos
  * @return
  */
 int getX(t_localisation loca);
 
 /**
- *
+ * @brief getter for the y pos of a localisation
  * @param pos
  * @return
  */

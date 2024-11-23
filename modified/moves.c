@@ -299,13 +299,14 @@ void displayLine(t_map map){
     for(int i =0; i<map.x_max; i++){
         printf("===");
     }
-    printf("\n\n");
+    printf("\n");
 }
 
 
 int updateAnimPhase(t_map map, t_move* moves, int size,t_localisation* loc){
     int foundReg = 0;
     //printf("Initial position: %s\n", getMoveAsString(moves[0]));
+    printf("\n");
     displayMapWithMARC(map, *loc);
     displayLine(map);
     for (int i = 1; i < size; ++i) {

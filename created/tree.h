@@ -39,7 +39,7 @@ t_node* minLeaf(t_node* node, double* timeCplx);
 t_node** wayToLeafFromLeaf(t_node* leaf, double* timeCplx);
 
 /**
- *
+ * @brief a full phase of MARC navigation
  * @param loca
  * @param nbDrawnMove
  * @param nbOfMoves
@@ -51,7 +51,7 @@ t_node** wayToLeafFromLeaf(t_node* leaf, double* timeCplx);
 t_move* aPhase(t_localisation loca, int nbDrawnMove, int nbOfMoves, t_map map, int *sizeMoves, double* timeCplx);
 
 /**
- *
+ * @brief phases of Marc navigation until he reached the base
  * @param map
  * @param loc
  * @param nbToDraw
@@ -62,6 +62,10 @@ t_move* aPhase(t_localisation loca, int nbDrawnMove, int nbOfMoves, t_map map, i
  */
 int phaseUntilBase(t_map map, t_localisation loc, int nbToDraw, int nbMoves, int showMap, double* timeCplx);
 
+/**
+ * @brief free the whole tree from the root
+ * @param root
+ */
 void freeTree(t_node* root);
 
 #endif //UNTITLED1_TREE_H

@@ -5,6 +5,18 @@
 #include "node.h"
 #include <stdio.h>
 
+// Functions for node
+
+/**
+ * @brief function to init a node
+ * @param value value of the case where Marc will be
+ * @param nb_sons number of sons
+ * @param depth depth of the node in the tree (root is 0)
+ * @param parent pointer to its parent
+ * @param localisation position when reaching this node
+ * @param movement movement done by this node
+ * @return
+ */
 t_node* createNode(int value, int nb_sons, int depth, t_node* parent, t_localisation localisation, t_move movement){
     t_node *new_node;
     new_node = (t_node *)malloc(sizeof(t_node));
@@ -24,6 +36,8 @@ t_node* createNode(int value, int nb_sons, int depth, t_node* parent, t_localisa
 }
 
 
+//FUNCTION FOR QUEUE OF NODES
+
 /**
  * @brief Function to create a queue
  * @param size : the size of the queue
@@ -41,6 +55,7 @@ node_queue createNodeQueue(int size)
     return queue;
 }
 
+// fct to enqueue a node
 void enqueueNode(node_queue *p_queue, t_node* node)
 {
     // the queue must not be full
@@ -49,6 +64,7 @@ void enqueueNode(node_queue *p_queue, t_node* node)
     p_queue->last++;
 }
 
+// fct to dequeue a node
 t_node* dequeueNode(node_queue* p_queue)
 {
     // the queue must not be empty
@@ -57,6 +73,7 @@ t_node* dequeueNode(node_queue* p_queue)
     return p_queue->nodes[(p_queue->first - 1) % p_queue->size];
 }
 
+// fct to tell if the queue is empty
 int isNodeQueueEmpty(node_queue q){
     return (q.first == q.last);
 }

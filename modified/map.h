@@ -67,6 +67,7 @@ void freeMap(t_map map);
 void displayMap(t_map);
 
 /**
+ * @brief getter for the soil at a given x and y
  * @param map
  * @param x
  * @param y
@@ -75,10 +76,19 @@ void displayMap(t_map);
 t_soil getSoil(t_map map, int x, int y);
 
 /**
+ * @brief getter for the Cost at a given localisation
+ * @param map
+ * @param loc
  * @return the cost value on the map
  */
 int getCost(t_map map, t_localisation loc);
 
-void displayMapWithMARC(t_map, t_localisation);
+/**
+ * @copybrief I took some already done function by Sir Flasque and mixed them
+ * @brief Display the map with M at the given position and It's orientation
+ * @param map
+ * @param loca_marc
+ */
+void displayMapWithMARC(t_map map, t_localisation loca_marc);
 
 #endif //UNTITLED1_MAP_H
